@@ -1,0 +1,36 @@
+import React from "react";
+import { WorkflowsPage } from "./workflows.page";
+import { FacetDto } from "@/features/filter";
+import { createServerApiClient } from "@/shared/api/server";
+import { getInitialFacets } from "@/features/filter/api";
+
+export default async function Page() {
+  let initialFacets: FacetDto[] | null = null;
+
+  try {
+    const api = await createServerApiClient();
+    initialFacets = await getInitialFacets(api, "workflows");
+  } catch (error) {
+    console.log(error);
+  }
+  return (
+    <WorkflowsPage
+      initialFacetsData={
+        initialFacets
+          ? { facets: initialFacets, facetOptions: null }
+          : undefined
+      }
+    />
+  );
+}
+
+import { getTranslations } from 'next-intl/server';
+
+export async function generateMetadata() {
+  const t = await getTranslations('pages.workflows');
+  
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}

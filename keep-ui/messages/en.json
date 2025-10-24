@@ -1,0 +1,191 @@
+{
+  "common": {
+    "save": "Save",
+    "close": "Close",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "create": "Create",
+    "update": "Update",
+    "refresh": "Refresh",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "yes": "Yes",
+    "no": "No",
+    "none": "None",
+    "all": "All",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "select": "Select",
+    "name": "Name",
+    "description": "Description",
+    "status": "Status",
+    "severity": "Severity",
+    "assignee": "Assignee",
+    "source": "Source",
+    "lastReceived": "Last Received",
+    "actions": "Actions",
+    "settings": "Settings",
+    "dashboard": "Dashboard",
+    "dashboards": "Dashboards",
+    "incidents": "Incidents",
+    "alerts": "Alerts",
+    "workflows": "Workflows",
+    "providers": "Providers",
+    "users": "Users",
+    "notAssigned": "Not assigned",
+    "dismissed": "Dismissed",
+    "notDismissed": "Not dismissed",
+    "linkedIncident": "Linked incident",
+    "multipleObjects": "Multiple Objects",
+    "extraPayload": "Extra Payload"
+  },
+  "navigation": {
+    "incidents": "INCIDENTS",
+    "alerts": "Alerts",
+    "dashboards": "Dashboards",
+    "feed": "Feed",
+    "workflows": "Workflows",
+    "providers": "Providers",
+    "settings": "Settings",
+    "maintenance": "Maintenance",
+    "extraction": "Extraction",
+    "mapping": "Mapping",
+    "rules": "Rules",
+    "notifications": "Notifications",
+    "topology": "Topology",
+    "ai": "AI"
+  },
+  "severity": {
+    "critical": "Critical",
+    "high": "High",
+    "warning": "Warning",
+    "info": "Info",
+    "low": "Low"
+  },
+  "status": {
+    "firing": "Firing",
+    "resolved": "Resolved",
+    "suppressed": "Suppressed",
+    "acknowledged": "Acknowledged",
+    "open": "Open",
+    "closed": "Closed"
+  },
+  "forms": {
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "enterUsername": "Enter your username",
+    "enterPassword": "Enter your password",
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required",
+    "signingIn": "Signing in...",
+    "redirecting": "Redirecting...",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "errors": {
+    "unexpectedError": "An unexpected error occurred",
+    "configurationError": "There was a problem with the authentication setup. It is probably due to a configuration error on the authentication server.\\n\\nPlease contact the administrator.",
+    "accessDenied": "You don't have permission to access this resource.",
+    "verificationExpired": "The verification link has expired or is invalid. Please request a new one.",
+    "serverConfigurationError": "Server Configuration Error",
+    "authenticationError": "Authentication Error",
+    "workflowNotValid": "Workflow is not valid",
+    "workflowNotInitialized": "Workflow is not initialized",
+    "workflowAlreadyRunning": "Workflow is already running",
+    "failedToTestRun": "Failed to test run workflow",
+    "failedToStartWorkflow": "Failed to start workflow",
+    "failedToLoadWorkflow": "Failed to load workflow",
+    "failedToParseWorkflow": "Failed to parse workflow",
+    "unknownError": "Unknown error"
+  },
+  "placeholders": {
+    "searchFields": "Search fields...",
+    "enterFacetName": "Enter facet name",
+    "enterFacetProperty": "Enter facet property path",
+    "filterValues": "Filter values...",
+    "selectFromList": "Select from the list",
+    "searchColumns": "Search columns...",
+    "enterValue": "Enter value",
+    "fieldName": "Field Name",
+    "fieldValue": "Field Value",
+    "selectAlertSource": "Select alert source",
+    "addDismissComment": "Add your dismiss comment here...",
+    "addNote": "Add your note here...",
+    "selectOrCreateTags": "Select or create tags",
+    "selectWorkflow": "Select workflow"
+  },
+  "titles": {
+    "addIncident": "Add Incident",
+    "addNewFacet": "Add New Facet",
+    "buildAlertPayload": "Build Alert Payload",
+    "testRun": "Test Run",
+    "runWorkflow": "Run Workflow",
+    "runWorkflowWithInputs": "Run Workflow with Inputs",
+    "editWorkflow": "Edit Workflow",
+    "newWorkflow": "New Workflow",
+    "showYamlEditor": "Show YAML editor",
+    "hideYamlEditor": "Hide YAML editor",
+    "showAiAssistant": "Show AI Assistant",
+    "hideAiAssistant": "Hide AI Assistant",
+    "clearSelection": "Clear Selection",
+    "resolve": "Resolve",
+    "noAlertsToDisplay": "No Alerts to Display",
+    "noAlertsMatchingFilter": "No Alerts Matching Your Filter",
+    "noAlertsMatchingCel": "No Alerts Matching Your CEL Query",
+    "selectTagsToWatch": "Select tags to watch",
+    "forYourInformation": "For your information"
+  },
+  "messages": {
+    "customizePresets": "Customize your presets list by watching specific tags.",
+    "dashboardsWillAppear": "Dashboards will appear here when saved.",
+    "workflowYamlCopied": "Workflow YAML copied to clipboard",
+    "loadingYamlEditor": "Loading YAML editor...",
+    "loadingProviders": "Loading providers...",
+    "loadingWorkflowBuilder": "Loading workflow builder...",
+    "loadingWorkflow": "Loading workflow...",
+    "waitingForResults": "Waiting for workflow execution results...",
+    "testRunWithPayload": "Test Run with Payload",
+    "deleteDashboardConfirm": "You are about to delete this dashboard. Are you sure?",
+    "myDashboard": "My Dashboard",
+    "addDashboard": "Add Dashboard",
+    "beta": "Beta"
+  },
+  "pages": {
+    "keep": {
+      "title": "Keep",
+      "description": "The open-source AIOps and alert management platform."
+    },
+    "incidents": {
+      "title": "Keep - Incidents",
+      "description": "List of incidents"
+    },
+    "workflows": {
+      "title": "Keep - Workflows",
+      "description": "Automate your workflows with Keep."
+    },
+    "alerts": {
+      "title": "Keep - Alerts",
+      "description": "Alert management and monitoring."
+    },
+    "dashboard": {
+      "title": "Keep - Dashboard",
+      "description": "Customizable dashboard for monitoring."
+    },
+    "providers": {
+      "title": "Keep - Providers",
+      "description": "Manage your data providers."
+    },
+    "settings": {
+      "title": "Keep - Settings",
+      "description": "Configure your Keep instance."
+    }
+  }
+}

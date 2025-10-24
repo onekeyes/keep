@@ -1,0 +1,191 @@
+{
+  "common": {
+    "save": "保存",
+    "close": "关闭",
+    "apply": "应用",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "add": "添加",
+    "create": "创建",
+    "update": "更新",
+    "refresh": "刷新",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "warning": "警告",
+    "info": "信息",
+    "yes": "是",
+    "no": "否",
+    "none": "无",
+    "all": "全部",
+    "search": "搜索",
+    "filter": "筛选",
+    "clear": "清除",
+    "select": "选择",
+    "name": "名称",
+    "description": "描述",
+    "status": "状态",
+    "severity": "严重程度",
+    "assignee": "负责人",
+    "source": "来源",
+    "lastReceived": "最后接收",
+    "actions": "操作",
+    "settings": "设置",
+    "dashboard": "仪表板",
+    "dashboards": "仪表板",
+    "incidents": "事件",
+    "alerts": "告警",
+    "workflows": "工作流",
+    "providers": "提供商",
+    "users": "用户",
+    "notAssigned": "未分配",
+    "dismissed": "已忽略",
+    "notDismissed": "未忽略",
+    "linkedIncident": "关联事件",
+    "multipleObjects": "多个对象",
+    "extraPayload": "额外载荷"
+  },
+  "navigation": {
+    "incidents": "事件",
+    "alerts": "告警",
+    "dashboards": "仪表板",
+    "feed": "动态",
+    "workflows": "工作流",
+    "providers": "提供商",
+    "settings": "设置",
+    "maintenance": "维护",
+    "extraction": "提取",
+    "mapping": "映射",
+    "rules": "规则",
+    "notifications": "通知",
+    "topology": "拓扑",
+    "ai": "AI"
+  },
+  "severity": {
+    "critical": "严重",
+    "high": "高",
+    "warning": "警告",
+    "info": "信息",
+    "low": "低"
+  },
+  "status": {
+    "firing": "触发中",
+    "resolved": "已解决",
+    "suppressed": "已抑制",
+    "acknowledged": "已确认",
+    "open": "打开",
+    "closed": "关闭"
+  },
+  "forms": {
+    "username": "用户名",
+    "password": "密码",
+    "email": "邮箱",
+    "enterUsername": "请输入用户名",
+    "enterPassword": "请输入密码",
+    "usernameRequired": "用户名是必填项",
+    "passwordRequired": "密码是必填项",
+    "signingIn": "登录中...",
+    "redirecting": "重定向中...",
+    "signIn": "登录",
+    "signOut": "登出"
+  },
+  "errors": {
+    "unexpectedError": "发生意外错误",
+    "configurationError": "身份验证设置出现问题。这可能是由于身份验证服务器上的配置错误。\\n\\n请联系管理员。",
+    "accessDenied": "您没有权限访问此资源。",
+    "verificationExpired": "验证链接已过期或无效。请重新申请。",
+    "serverConfigurationError": "服务器配置错误",
+    "authenticationError": "身份验证错误",
+    "workflowNotValid": "工作流无效",
+    "workflowNotInitialized": "工作流未初始化",
+    "workflowAlreadyRunning": "工作流已在运行",
+    "failedToTestRun": "测试运行工作流失败",
+    "failedToStartWorkflow": "启动工作流失败",
+    "failedToLoadWorkflow": "加载工作流失败",
+    "failedToParseWorkflow": "解析工作流失败",
+    "unknownError": "未知错误"
+  },
+  "placeholders": {
+    "searchFields": "搜索字段...",
+    "enterFacetName": "输入分面名称",
+    "enterFacetProperty": "输入分面属性路径",
+    "filterValues": "筛选值...",
+    "selectFromList": "从列表中选择",
+    "searchColumns": "搜索列...",
+    "enterValue": "输入值",
+    "fieldName": "字段名",
+    "fieldValue": "字段值",
+    "selectAlertSource": "选择告警来源",
+    "addDismissComment": "在此添加忽略评论...",
+    "addNote": "在此添加备注...",
+    "selectOrCreateTags": "选择或创建标签",
+    "selectWorkflow": "选择工作流"
+  },
+  "titles": {
+    "addIncident": "添加事件",
+    "addNewFacet": "添加新分面",
+    "buildAlertPayload": "构建告警载荷",
+    "testRun": "测试运行",
+    "runWorkflow": "运行工作流",
+    "runWorkflowWithInputs": "使用输入运行工作流",
+    "editWorkflow": "编辑工作流",
+    "newWorkflow": "新工作流",
+    "showYamlEditor": "显示YAML编辑器",
+    "hideYamlEditor": "隐藏YAML编辑器",
+    "showAiAssistant": "显示AI助手",
+    "hideAiAssistant": "隐藏AI助手",
+    "clearSelection": "清除选择",
+    "resolve": "解决",
+    "noAlertsToDisplay": "没有要显示的告警",
+    "noAlertsMatchingFilter": "没有符合您筛选条件的告警",
+    "noAlertsMatchingCel": "没有符合您CEL查询的告警",
+    "selectTagsToWatch": "选择要关注的标签",
+    "forYourInformation": "供您参考"
+  },
+  "messages": {
+    "customizePresets": "通过关注特定标签来自定义您的预设列表。",
+    "dashboardsWillAppear": "保存的仪表板将在此处显示。",
+    "workflowYamlCopied": "工作流YAML已复制到剪贴板",
+    "loadingYamlEditor": "加载YAML编辑器...",
+    "loadingProviders": "加载提供商...",
+    "loadingWorkflowBuilder": "加载工作流构建器...",
+    "loadingWorkflow": "加载工作流...",
+    "waitingForResults": "等待工作流执行结果...",
+    "testRunWithPayload": "使用载荷测试运行",
+    "deleteDashboardConfirm": "您即将删除此仪表板。确定吗？",
+    "myDashboard": "我的仪表板",
+    "addDashboard": "添加仪表板",
+    "beta": "测试版"
+  },
+  "pages": {
+    "keep": {
+      "title": "Keep",
+      "description": "开源AIOps和告警管理平台。"
+    },
+    "incidents": {
+      "title": "Keep - 事件",
+      "description": "事件列表"
+    },
+    "workflows": {
+      "title": "Keep - 工作流",
+      "description": "使用Keep自动化您的工作流。"
+    },
+    "alerts": {
+      "title": "Keep - 告警",
+      "description": "告警管理和监控。"
+    },
+    "dashboard": {
+      "title": "Keep - 仪表板",
+      "description": "可定制的监控仪表板。"
+    },
+    "providers": {
+      "title": "Keep - 提供商",
+      "description": "管理您的数据提供商。"
+    },
+    "settings": {
+      "title": "Keep - 设置",
+      "description": "配置您的Keep实例。"
+    }
+  }
+}

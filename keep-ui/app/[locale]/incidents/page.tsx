@@ -1,0 +1,38 @@
+import { IncidentList } from "features/incidents/incident-list";
+import { createServerApiClient } from "@/shared/api/server";
+import { getInitialFacets } from "@/features/filter/api";
+import { FacetDto } from "@/features/filter";
+
+export default async function Page() {
+  let initialFacets: FacetDto[] | null = null;
+
+  try {
+    const api = await createServerApiClient();
+
+    const tasks = [getInitialFacets(api, "incidents")];
+    const [_facetsData] = await Promise.all(tasks);
+    initialFacets = _facetsData as FacetDto[];
+  } catch (error) {
+    console.log(error);
+  }
+  return (
+    <IncidentList
+      initialFacetsData={
+        initialFacets
+          ? { facets: initialFacets, facetOptions: null }
+          : undefined
+      }
+    />
+  );
+}
+
+import { getTranslations } from 'next-intl/server';
+
+export async function generateMetadata() {
+  const t = await getTranslations('pages.incidents');
+  
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}

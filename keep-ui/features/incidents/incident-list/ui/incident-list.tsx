@@ -52,6 +52,7 @@ import EnhancedDateRangePickerV2, {
 } from "@/components/ui/DateRangePickerV2";
 import { useTimeframeState } from "@/components/ui/useTimeframeState";
 import { PaginationState } from "@/features/filter/pagination";
+import { useTranslations } from "next-intl";
 
 const AssigneeLabel = ({ email }: { email: string }) => {
   const user = useUser(email);
@@ -64,6 +65,7 @@ export function IncidentList({
   initialData?: PaginatedIncidentsDto;
   initialFacetsData?: InitialFacetsData;
 }) {
+  const t = useTranslations();
   const [incidentsPagination, setIncidentsPagination] =
     useState<PaginationState>({
       limit: DEFAULT_INCIDENTS_PAGE_SIZE,
@@ -185,14 +187,14 @@ export function IncidentList({
         ),
         renderOptionLabel: (facetOption) => {
           if (!facetOption.display_name) {
-            return "Not assigned";
+            return t('common.notAssigned');
           }
           return <AssigneeLabel email={facetOption.display_name} />;
         },
       },
       ["Dismissed"]: {
         renderOptionLabel: (facetOption) =>
-          facetOption.display_name === "true" ? "Dismissed" : "Not dismissed",
+          facetOption.display_name === "true" ? t('common.dismissed') : t('common.notDismissed'),
         renderOptionIcon: (facetOption) => (
           <Icon
             icon={
@@ -212,8 +214,8 @@ export function IncidentList({
         renderOptionLabel: (facetOption) =>
           facetOption.display_name == "1" ||
           facetOption.display_name.toLocaleLowerCase() == "true"
-            ? "Yes"
-            : "No",
+            ? t('common.yes')
+            : t('common.no'),
       },
     };
   }, []);
