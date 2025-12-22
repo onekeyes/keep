@@ -703,7 +703,7 @@ class ProviderEncoder(json.JSONEncoder):
             return o.__dict__
         elif hasattr(o, 'model_dump'):
             # Pydantic BaseModel
-            return o.model_dump()
+        return o.model_dump()
         else:
             # Fallback for other types
             return super().default(o)

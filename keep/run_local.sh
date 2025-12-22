@@ -129,14 +129,14 @@ print(f'[INFO] 工作目录: {os.getcwd()}')
 print('[INFO] 正在导入 keep.api...')
 
 try:
-    from keep.api import api
+from keep.api import api
     print('[INFO] keep.api 导入成功')
     print('[INFO] 正在创建应用实例...')
-    app = api.get_app()
+app = api.get_app()
     print('[INFO] 应用实例创建成功')
     print('[INFO] 正在启动服务器...')
     print('')
-    api.run(app)
+api.run(app)
 except Exception as e:
     print(f'[ERROR] 启动失败: {e}')
     import traceback
@@ -181,14 +181,14 @@ print(f'[INFO] 工作目录: {os.getcwd()}')
 print('[INFO] 正在导入 keep.api...')
 
 try:
-    from keep.api import api
+from keep.api import api
     print('[INFO] keep.api 导入成功')
     print('[INFO] 正在创建应用实例...')
-    app = api.get_app()
+app = api.get_app()
     print('[INFO] 应用实例创建成功')
     print('[INFO] 正在启动服务器...')
     print('')
-    api.run(app)
+api.run(app)
 except Exception as e:
     print(f'[ERROR] 启动失败: {e}')
     import traceback
@@ -224,14 +224,14 @@ print(f'[INFO] 工作目录: {os.getcwd()}')
 print('[INFO] 正在导入 keep.api...')
 
 try:
-    from keep.api import api
+from keep.api import api
     print('[INFO] keep.api 导入成功')
     print('[INFO] 正在创建应用实例...')
-    app = api.get_app()
+app = api.get_app()
     print('[INFO] 应用实例创建成功')
     print('[INFO] 正在启动服务器...')
     print('')
-    api.run(app)
+api.run(app)
 except Exception as e:
     print(f'[ERROR] 启动失败: {e}')
     import traceback

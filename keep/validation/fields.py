@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import AnyUrl, HttpUrl, conint
 try:
-    from pydantic.networks import MultiHostUrl as PydanticMultiHostUrl
+from pydantic.networks import MultiHostUrl as PydanticMultiHostUrl
 except ImportError:
     # Pydantic v2: MultiHostUrl was removed, use _BaseMultiHostUrl instead
     from pydantic.networks import _BaseMultiHostUrl as PydanticMultiHostUrl
