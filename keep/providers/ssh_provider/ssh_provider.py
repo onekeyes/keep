@@ -6,7 +6,7 @@ import dataclasses
 import io
 import typing
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 from paramiko import AutoAddPolicy, RSAKey, SSHClient
 
 from keep.contextmanager.contextmanager import ContextManager
@@ -57,12 +57,12 @@ class SshProviderAuthConfig:
         },
     )
 
-    @pydantic.root_validator
-    def check_password_or_pkey(cls, values):
-        password, pkey = values.get("password"), values.get("pkey")
+    @pydantic.model_validator(mode="after")
+    def check_password_or_pkey(self):
+        password, pkey = self.password, self.pkey
         if password is None and pkey is None:
             raise ValueError("either password or private key must be provided")
-        return values
+        return self
 
 
 class SshProvider(BaseProvider):

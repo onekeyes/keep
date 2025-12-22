@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 from keep.api.models.action_type import ActionType
 from keep.api.models.db.alert import AlertAudit

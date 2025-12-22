@@ -1,5 +1,5 @@
 from typing import Optional, Union, Any
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 
 class ActionDTO(BaseModel):

@@ -1,7 +1,7 @@
 import dataclasses
 from urllib.parse import urljoin
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 from azure.identity import ClientSecretCredential
 

@@ -2,7 +2,7 @@ import logging
 from typing import Any
 
 from fastapi import APIRouter
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 from keep.api.core.cel_to_sql.cel_ast_converter import CelToAstConverter
 from celpy import CELParseError

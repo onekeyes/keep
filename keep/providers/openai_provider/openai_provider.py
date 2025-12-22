@@ -1,6 +1,6 @@
 import json
 import dataclasses
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 from openai import OpenAI
 
 from keep.contextmanager.contextmanager import ContextManager

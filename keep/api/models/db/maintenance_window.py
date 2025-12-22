@@ -2,7 +2,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 from sqlalchemy import DateTime, JSON
 
 # third-parties

@@ -35,7 +35,7 @@ def get_extraction_rules(
         .filter(ExtractionRule.tenant_id == authenticated_entity.tenant_id)
         .all()
     )
-    return [ExtractionRuleDtoOut(**rule.dict()) for rule in rules]
+    return [ExtractionRuleDtoOut(**rule.model_dump()) for rule in rules]
 
 
 @router.post("", description="Create a new extraction rule")
@@ -48,14 +48,14 @@ def create_extraction_rule(
 ) -> ExtractionRuleDtoOut:
     logger.info("Creating a new extraction rule")
     new_rule = ExtractionRule(
-        **rule_dto.dict(),
+        **rule_dto.model_dump(),
         created_by=authenticated_entity.email,
         tenant_id=authenticated_entity.tenant_id
     )
     session.add(new_rule)
     session.commit()
     session.refresh(new_rule)
-    return ExtractionRuleDtoOut(**new_rule.dict())
+    return ExtractionRuleDtoOut(**new_rule.model_dump())
 
 
 @router.put("/{rule_id}", description="Update an existing extraction rule")
@@ -79,12 +79,12 @@ def update_extraction_rule(
     if rule is None:
         raise HTTPException(status_code=404, detail="Extraction rule not found")
 
-    for key, value in rule_dto.dict(exclude_unset=True).items():
+    for key, value in rule_dto.model_dump(exclude_unset=True).items():
         setattr(rule, key, value)
     rule.updated_by = authenticated_entity.email
     session.commit()
     session.refresh(rule)
-    return ExtractionRuleDtoOut(**rule.dict())
+    return ExtractionRuleDtoOut(**rule.model_dump())
 
 
 @router.delete("/{rule_id}", description="Delete an extraction rule")

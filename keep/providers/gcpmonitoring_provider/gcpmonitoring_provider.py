@@ -6,7 +6,7 @@ import logging
 import google.api_core
 import google.api_core.exceptions
 import google.cloud.logging
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus
 from keep.contextmanager.contextmanager import ContextManager
 from keep.providers.base.base_provider import BaseProvider, ProviderHealthMixin
@@ -23,7 +23,7 @@ class LogEntry(pydantic.BaseModel):
     payload_exists: bool = False
     http_request_exists: bool = False
 
-    @pydantic.validator("severity", pre=True)
+    @pydantic.field_validator("severity", mode="before")
     def validate_severity(cls, severity):
         if severity is None:
             return "INFO"

@@ -4,7 +4,7 @@ GitlabPipelinesProvider is a provider that interacts with GitLab Pipelines API.
 
 import dataclasses
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 from requests.exceptions import JSONDecodeError
 

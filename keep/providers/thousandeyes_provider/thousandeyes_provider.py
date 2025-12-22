@@ -4,7 +4,7 @@ Thousandseyes provider is a class that allows you to retrieve alerts from Thousa
 
 import dataclasses
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

@@ -5,7 +5,7 @@ SnowflakeProvider is a class that provides a way to read data from Snowflake.
 import dataclasses
 import typing
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
 from snowflake.connector import connect

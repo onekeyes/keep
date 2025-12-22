@@ -5,7 +5,7 @@ GitlabProvider is a class that implements the BaseProvider interface for GitLab 
 import dataclasses
 import urllib.parse
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 from requests import HTTPError
 

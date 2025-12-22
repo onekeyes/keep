@@ -6,7 +6,7 @@ import os
 import dataclasses
 import json
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 from requests.auth import HTTPBasicAuth
 

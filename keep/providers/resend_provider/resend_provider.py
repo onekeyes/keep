@@ -4,7 +4,7 @@ ResendProvider is a class that implements the Resend API and allows email sendin
 
 import dataclasses
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 
 from keep.contextmanager.contextmanager import ContextManager

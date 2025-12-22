@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List, Optional
 from uuid import UUID, uuid4
 
-from pydantic.v1 import PrivateAttr
+from pydantic import PrivateAttr
 from retry import retry
 from sqlalchemy import ForeignKey, event
 from sqlalchemy.exc import IntegrityError

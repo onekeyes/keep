@@ -6,7 +6,7 @@ import dataclasses
 import inspect
 import logging
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 # from confluent_kafka import Consumer, KafkaError, KafkaException
 from kafka import KafkaConsumer
 from kafka.errors import KafkaError, NoBrokersAvailable

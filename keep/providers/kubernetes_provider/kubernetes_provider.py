@@ -1,7 +1,7 @@
 import dataclasses
 import datetime
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 from kubernetes import client
 from kubernetes.client.rest import ApiException
 

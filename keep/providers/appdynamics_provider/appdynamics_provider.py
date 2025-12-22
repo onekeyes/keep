@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import List, Optional
 from urllib.parse import urlencode, urljoin
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 from dateutil import parser
 
@@ -84,18 +84,18 @@ class AppdynamicsProviderAuthConfig:
         },
     )
 
-    @pydantic.root_validator
-    def check_password_or_token(cls, values):
+    @pydantic.model_validator(mode="after")
+    def check_password_or_token(self):
         username, password, token = (
-            values.get("appDynamicsUsername"),
-            values.get("appDynamicsPassword"),
-            values.get("appDynamicsAccessToken"),
+            self.appDynamicsUsername,
+            self.appDynamicsPassword,
+            self.appDynamicsAccessToken,
         )
         if not (username and password) and not token:
             raise ValueError(
                 "Either username/password or access token must be provided"
             )
-        return values
+        return self
 
 
 class AppdynamicsProvider(BaseProvider):

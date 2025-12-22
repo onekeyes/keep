@@ -6,7 +6,7 @@ import dataclasses
 import datetime
 import os
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 from requests.auth import HTTPBasicAuth
 

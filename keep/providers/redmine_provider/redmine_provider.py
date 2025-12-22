@@ -4,7 +4,7 @@ RedmineProvider is a class that implements the BaseProvider interface for Redmin
 
 import dataclasses
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 from requests import HTTPError
 

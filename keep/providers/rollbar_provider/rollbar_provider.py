@@ -7,7 +7,7 @@ import datetime
 from typing import List
 from urllib.parse import urljoin
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity

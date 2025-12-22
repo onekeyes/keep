@@ -6,7 +6,7 @@ import base64
 import dataclasses
 from urllib.parse import urljoin
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 
 from keep.contextmanager.contextmanager import ContextManager

@@ -2,7 +2,7 @@ import json
 import os
 from uuid import uuid4
 
-from pydantic.v1 import BaseModel, Json
+from pydantic import BaseModel, Json
 from sqlalchemy import JSON, Column, ForeignKey, Text
 from sqlmodel import Field, SQLModel
 

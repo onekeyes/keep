@@ -5,9 +5,9 @@ VictoriametricsProvider is a class that allows to install webhooks and get alert
 import dataclasses
 import datetime
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
-from pydantic.v1 import AnyHttpUrl
+from pydantic import AnyHttpUrl
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus
 from keep.contextmanager.contextmanager import ContextManager

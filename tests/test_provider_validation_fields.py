@@ -1,5 +1,5 @@
 import pytest
-from pydantic.v1 import BaseModel, ValidationError
+from pydantic import BaseModel, ValidationError
 
 from keep.validation.fields import (
     HttpsUrl,

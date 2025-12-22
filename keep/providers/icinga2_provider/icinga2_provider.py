@@ -4,7 +4,7 @@ Icinga2 Provider is a class that provides a way to receive alerts from Icinga2 u
 
 import dataclasses
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import List
 from urllib.parse import urlencode, urljoin, urlparse
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

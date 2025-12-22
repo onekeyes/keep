@@ -8,7 +8,13 @@ from enum import Enum
 from typing import TYPE_CHECKING, Any, Dict, Optional
 
 import pytz
-from pydantic.v1 import AnyHttpUrl, BaseModel, Extra, root_validator, validator
+from pydantic import (
+    AnyHttpUrl,
+    BaseModel,
+    ConfigDict,
+    field_validator,
+    model_validator,
+)
 
 from keep.api.models.severity_base import SeverityBaseInterface
 
@@ -100,7 +106,7 @@ class AlertDto(BaseModel):
         False  # @tal: Obselete field since we have dismissed, but kept for backwards compatibility
     )
     dismissUntil: str | None = None  # The time until the alert is dismissed
-    # DO NOT MOVE DISMISSED ABOVE dismissedUntil since it is used in root_validator
+    # DO NOT MOVE DISMISSED ABOVE dismissedUntil since it is used in model_validator
     dismissed: bool = False  # Whether the alert has been dismissed
     assignee: str | None = None  # The assignee of the alert
     providerId: str | None = None  # The provider id
@@ -116,14 +122,14 @@ class AlertDto(BaseModel):
 
     def __str__(self) -> str:
         # Convert the model instance to a dictionary
-        model_dict = self.dict()
+        model_dict = self.model_dump()
         return json.dumps(model_dict, indent=4, default=str)
 
     def __eq__(self, other):
         if isinstance(other, AlertDto):
             # Convert both instances to dictionaries
-            dict_self = self.dict()
-            dict_other = other.dict()
+            dict_self = self.model_dump()
+            dict_other = other.model_dump()
 
             # Fields to exclude from comparison since they are bit different in different db's
             # todo: solve it in a better way
@@ -141,18 +147,18 @@ class AlertDto(BaseModel):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    @validator("fingerprint", pre=True, always=True)
-    def assign_fingerprint_if_none(cls, fingerprint, values):
-        return get_fingerprint(fingerprint, values)
+    @field_validator("fingerprint", mode="before")
+    def assign_fingerprint_if_none(cls, fingerprint, info):
+        return get_fingerprint(fingerprint, info.data)
 
-    @validator("deleted", pre=True, always=True)
-    def validate_deleted(cls, deleted, values):
+    @field_validator("deleted", mode="before")
+    def validate_deleted(cls, deleted, info):
         if isinstance(deleted, bool):
             return deleted
         if isinstance(deleted, list):
-            return values.get("lastReceived") in deleted
+            return info.data.get("lastReceived") in deleted
 
-    @validator("url", pre=True)
+    @field_validator("url", mode="before")
     def prepend_https(cls, url):
         if not isinstance(url, str):
             return url
@@ -167,7 +173,7 @@ class AlertDto(BaseModel):
             url = f"https://{url}"
         return urllib.parse.quote(url, safe="/:?=&")
 
-    @validator("lastReceived", pre=True, always=True)
+    @field_validator("lastReceived", mode="before")
     def validate_last_received(cls, last_received):
         def convert_to_iso_format(date_string):
             try:
@@ -207,8 +213,8 @@ class AlertDto(BaseModel):
 
         raise ValueError(f"Invalid date format: {last_received}")
 
-    @validator("dismissed", pre=True, always=True)
-    def validate_dismissed(cls, dismissed, values):
+    @field_validator("dismissed", mode="before")
+    def validate_dismissed(cls, dismissed, info):
         # normzlize dismissed value
         if isinstance(dismissed, str):
             dismissed = dismissed.lower() == "true"
@@ -218,7 +224,7 @@ class AlertDto(BaseModel):
             return dismissed
 
         # else, validate dismissedUntil
-        dismiss_until = values.get("dismissUntil")
+        dismiss_until = info.data.get("dismissUntil")
         # if there's no dismissUntil, return just return dismissed
         if not dismiss_until or dismiss_until == "forever":
             return dismissed
@@ -232,7 +238,7 @@ class AlertDto(BaseModel):
         )
         return dismissed
 
-    @validator("description_format")
+    @field_validator("description_format")
     def validate_description_format(cls, description_format):
         if description_format is None:
             return None
@@ -241,7 +247,7 @@ class AlertDto(BaseModel):
             raise ValueError(f"description_format must be one of {valid_formats}")
         return description_format
 
-    @root_validator(pre=True)
+    @model_validator(mode="before")
     def set_default_values(cls, values: Dict[str, Any]) -> Dict[str, Any]:
         # Check and set id:
         if not values.get("id"):
@@ -289,9 +295,9 @@ class AlertDto(BaseModel):
         values.pop("deletedAt", None)
         return values
 
-    # after root_validator to ensure that the values are set
-    @root_validator(pre=False)
-    def validate_status(cls, values: Dict[str, Any]) -> Dict[str, Any]:
+    # after model_validator to ensure that the values are set
+    @model_validator(mode="after")
+    def validate_status(cls, values: "AlertDto") -> "AlertDto":
         # if dismissed, change status to SUPPRESSED
         # note this is happen AFTER validate_dismissed which already consider
         #   dismissed + dismissUntil
@@ -299,9 +305,10 @@ class AlertDto(BaseModel):
         #     values["status"] = AlertStatus.SUPPRESSED
         return values
 
-    class Config:
-        extra = Extra.allow
-        schema_extra = {
+    model_config = ConfigDict(
+        extra="allow",
+        validate_default=True,
+        json_schema_extra={
             "examples": [
                 {
                     "id": "1234",
@@ -327,12 +334,13 @@ class AlertDto(BaseModel):
                     "fingerprint": "1234",
                 }
             ]
-        }
-        use_enum_values = True
-        json_encoders = {
+        },
+        use_enum_values=True,
+        json_encoders={
             # Converts enums to their values for JSON serialization
             Enum: lambda v: v.value,
-        }
+        },
+    )
 
 
 class AlertWithIncidentLinkMetadataDto(AlertDto):

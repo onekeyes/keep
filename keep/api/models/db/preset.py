@@ -2,7 +2,7 @@ import enum
 from typing import Any, Dict, List, Optional
 from uuid import UUID, uuid4
 
-from pydantic.v1 import BaseModel, conint, constr
+from pydantic import BaseModel, ConfigDict, conint, constr
 from sqlalchemy import UniqueConstraint
 from sqlmodel import JSON, Column, Field, Relationship, SQLModel
 
@@ -57,8 +57,8 @@ class Preset(SQLModel, table=True):
 
     def to_dict(self):
         """Convert the model to a dictionary including relationships."""
-        preset_dict = self.dict()
-        preset_dict["tags"] = [tag.dict() for tag in self.tags]
+        preset_dict = self.model_dump()
+        preset_dict["tags"] = [tag.model_dump() for tag in self.tags]
         return preset_dict
 
 
@@ -69,11 +69,10 @@ class PresetSearchQuery(BaseModel):
     limit: conint(ge=0) = 1000
     timeframe: conint(ge=0) = 0
 
-    class Config:
-        allow_mutation = False
+    model_config = ConfigDict(frozen=True)
 
 
-class PresetDto(BaseModel, extra="ignore"):
+class PresetDto(BaseModel):
     id: UUID
     name: str
     options: list = []
@@ -92,6 +91,7 @@ class PresetDto(BaseModel, extra="ignore"):
     # static presets
     static: Optional[bool] = Field(default=False)
     tags: List[TagDto] = []
+    model_config = ConfigDict(extra="ignore")
 
     @property
     def cel_query(self) -> str:
@@ -191,7 +191,8 @@ class PresetDto(BaseModel, extra="ignore"):
         )
 
 
-class PresetOption(BaseModel, extra="ignore"):
+class PresetOption(BaseModel):
     label: str
     # cel or sql dict
     value: str | dict
+    model_config = ConfigDict(extra="ignore")

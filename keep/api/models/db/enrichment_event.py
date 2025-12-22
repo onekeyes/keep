@@ -2,7 +2,7 @@ import enum
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 from sqlalchemy_utils import UUIDType
 from sqlmodel import JSON, TEXT, Column, Field, ForeignKey, Index, SQLModel
 

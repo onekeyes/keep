@@ -7,7 +7,7 @@ import logging
 from typing import Literal
 from urllib.parse import urlparse, urlsplit, urlunparse
 
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 
 from keep.contextmanager.contextmanager import ContextManager

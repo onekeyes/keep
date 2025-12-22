@@ -14,7 +14,7 @@ from typing import List
 from urllib.parse import urlparse
 
 import boto3
-import pydantic.v1 as pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.core.config import config as keep_config

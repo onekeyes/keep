@@ -6,7 +6,7 @@ from typing import Any
 from dataclasses import Field
 from datetime import datetime
 
-from pydantic.v1 import BaseModel, Json, Field
+from pydantic import BaseModel, Json, Field
 
 from keep.api.models.db.ai_external import ExternalAI, ExternalAIConfigAndMetadata
 
