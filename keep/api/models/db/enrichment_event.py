@@ -2,7 +2,7 @@ import enum
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy_utils import UUIDType
 from sqlmodel import JSON, TEXT, Column, Field, ForeignKey, Index, SQLModel
 
@@ -65,8 +65,7 @@ class EnrichmentEvent(SQLModel, table=True):
         ),
     )
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class EnrichmentLog(SQLModel, table=True):

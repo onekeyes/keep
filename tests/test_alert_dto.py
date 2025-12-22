@@ -232,12 +232,12 @@ def test_alert_dismiss_until_expiry():
 
     # At current time, the alert should still be dismissed
     with freezegun.freeze_time(now):
-        revalidated_alert = AlertDto(**alert.dict())
+        revalidated_alert = AlertDto(**alert.model_dump())
         assert revalidated_alert.dismissed is True
 
     # Advance time by 2 minutes (past the dismissUntil time)
     with freezegun.freeze_time(now + timedelta(minutes=2)):
-        revalidated_alert = AlertDto(**alert.dict())
+        revalidated_alert = AlertDto(**alert.model_dump())
         assert revalidated_alert.dismissed is False
 
 
@@ -255,10 +255,10 @@ def test_alert_dismiss_forever():
 
     # At current time, the alert should still be dismissed
     with freezegun.freeze_time(now):
-        revalidated_alert = AlertDto(**alert.dict())
+        revalidated_alert = AlertDto(**alert.model_dump())
         assert revalidated_alert.dismissed is True
 
     # Advance time by 1 year (should still be dismissed)
     with freezegun.freeze_time(now + timedelta(days=365)):
-        revalidated_alert = AlertDto(**alert.dict())
+        revalidated_alert = AlertDto(**alert.model_dump())
         assert revalidated_alert.dismissed is True

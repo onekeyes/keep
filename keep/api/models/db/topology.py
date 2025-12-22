@@ -77,9 +77,7 @@ class TopologyService(SQLModel, table=True):
         back_populates="services", link_model=TopologyServiceApplication
     )
 
-    class Config:
-        orm_mode = True
-        unique_together = ["tenant_id", "service", "environment", "source_provider_id"]
+    model_config = ConfigDict(from_attributes=True)
 
 
 class TopologyServiceDependency(SQLModel, table=True):

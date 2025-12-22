@@ -100,7 +100,7 @@ def get_facet_options(
             except OperationalError as e:
                 logger.warning(
                     f"""Failed to execute query for facet options.
-                    Facet options: {json.dumps(facet_options_query.dict())}
+                    Facet options: {json.dumps(facet_options_query.model_dump())}
                     Error: {e}
                     """
                 )

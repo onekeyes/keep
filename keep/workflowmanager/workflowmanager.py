@@ -418,7 +418,7 @@ class WorkflowManager:
                         program = self.cel_environment.program(compiled_ast)
 
                         # Convert event to dict and normalize severity for CEL evaluation
-                        event_payload = event.dict()
+                        event_payload = event.model_dump()
                         # Convert severity string to numeric order for proper comparison with preprocessed CEL
                         if isinstance(event_payload.get("severity"), str):
                             try:

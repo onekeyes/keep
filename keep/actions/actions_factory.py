@@ -29,7 +29,7 @@ class ActionsCRUD:
                 results.append(dto)
             except ValidationError:
                 logger.warning("Unmatched Action model and the coresponding DTO", exc_info=True, extra={
-                    "data": model.dict()
+                    "data": model.model_dump()
                 })
         return results
 

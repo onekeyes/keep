@@ -260,7 +260,7 @@ def create_preset(
         raise HTTPException(400, "Options and name are required")
     if body.name == "Feed" or body.name == "Deleted":
         raise HTTPException(400, "Cannot create preset with this name")
-    options_dict = [option.dict() for option in body.options]
+    options_dict = [option.model_dump() for option in body.options]
 
     created_by = authenticated_entity.email
 
@@ -375,7 +375,7 @@ def update_preset(
     preset.is_noisy = body.is_noisy
     preset.counter_shows_firing_only = body.counter_shows_firing_only
 
-    options_dict = [option.dict() for option in body.options]
+    options_dict = [option.model_dump() for option in body.options]
     if not options_dict:
         raise HTTPException(400, "Options cannot be empty")
     preset.options = options_dict
@@ -457,7 +457,7 @@ def get_preset_alerts(
     if isinstance(preset, Preset):
         preset_dto = PresetDto(**preset.to_dict())
     else:
-        preset_dto = PresetDto(**preset.dict())
+        preset_dto = PresetDto(**preset.model_dump())
 
     # get all preset ids that the user has access to
     identity_manager = IdentityManagerFactory.get_identity_manager(

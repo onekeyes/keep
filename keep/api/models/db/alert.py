@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List
 from uuid import UUID, uuid4
 
-from pydantic import PrivateAttr
+from pydantic import ConfigDict, PrivateAttr
 from sqlalchemy import ForeignKey, ForeignKeyConstraint, UniqueConstraint
 from sqlalchemy_utils import UUIDType
 from sqlmodel import JSON, TEXT, Column, Field, Index, Relationship, SQLModel
@@ -172,8 +172,7 @@ class Alert(SQLModel, table=True):
         ),
     )
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class AlertEnrichment(SQLModel, table=True):
@@ -198,8 +197,7 @@ class AlertEnrichment(SQLModel, table=True):
         },
     )
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class AlertDeduplicationRule(SQLModel, table=True):
@@ -220,8 +218,7 @@ class AlertDeduplicationRule(SQLModel, table=True):
     priority: int = Field(default=0)  # for future use
     is_provisioned: bool = Field(default=False)
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class AlertDeduplicationEvent(SQLModel, table=True):
@@ -264,8 +261,7 @@ class AlertDeduplicationEvent(SQLModel, table=True):
         ),
     )
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class AlertField(SQLModel, table=True):
@@ -284,8 +280,7 @@ class AlertField(SQLModel, table=True):
         ),
     )
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class AlertRaw(SQLModel, table=True):
@@ -305,8 +300,7 @@ class AlertRaw(SQLModel, table=True):
         Index("ix_alert_raw_tenant_id_timestamp", "tenant_id", "timestamp"),
     )
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class AlertAudit(SQLModel, table=True):

@@ -95,15 +95,15 @@ class RulesEngine:
                     if "Invalid name" in str(e):
                         self.logger.warning(
                             f"{str(e)} in the CEL expression {rule.definition_cel} for alert {event.id}. This might mean there's a blank space in the field name",
-                            extra={"alert_id": event.id, "payload": event.dict()},
+                            extra={"alert_id": event.id, "payload": event.model_dump()},
                         )
                         continue
                 except Exception:
                     self.logger.exception(
                         f"Failed to evaluate rule {rule.name} on event {event.id}",
                         extra={
-                            "rule": rule.dict(),
-                            "event": event.dict(),
+                            "rule": rule.model_dump(),
+                            "event": event.model_dump(),
                         },
                     )
                     continue
@@ -233,7 +233,7 @@ class RulesEngine:
         # Remove 'alert.' prefix
         path = var.replace("alert.", "").split(".")
 
-        current = event.dict()  # Convert to dict for easier access
+        current = event.model_dump()  # Convert to dict for easier access
         try:
             for part in path:
                 part = part.strip()
@@ -455,7 +455,7 @@ class RulesEngine:
         Evaluates if a rule applies to an event using CEL. Handles type coercion for ==/!= between int and str.
         """
         sub_rules = self._extract_subrules(rule.definition_cel)
-        payload = event.dict()
+        payload = event.model_dump()
         # workaround since source is a list
         # todo: fix this in the future
         payload["source"] = payload["source"][0]
@@ -572,7 +572,7 @@ class RulesEngine:
 
         # note: rule_fingerprint is not a unique id, since different rules can lead to the same rule_fingerprint
         #       hence, the actual fingerprint is composed of the rule_fingerprint and the incident id
-        event_payload = event.dict()
+        event_payload = event.model_dump()
         grouping_criteria = rule.grouping_criteria or []
 
         if not rule.multi_level:
@@ -656,7 +656,7 @@ class RulesEngine:
     def get_alerts_activation(alerts: list[AlertDto]):
         activations = []
         for alert in alerts:
-            payload = alert.dict()
+            payload = alert.model_dump()
             # TODO: workaround since source is a list
             #       should be fixed in the future
             payload["source"] = ",".join(payload["source"])
@@ -707,7 +707,7 @@ class RulesEngine:
                 if "Invalid name" in str(e):
                     logger.warning(
                         f"{str(e)} in the CEL expression {cel} for alert {alert.id}. This might mean there's a blank space in the field name",
-                        extra={"alert_id": alert.id, "payload": alert.dict()},
+                        extra={"alert_id": alert.id, "payload": alert.model_dump()},
                     )
                     continue
             except celpy.evaluation.CELEvalError as e:

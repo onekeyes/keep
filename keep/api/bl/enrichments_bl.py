@@ -185,7 +185,7 @@ class EnrichmentsBl:
         is_alert_dto = False
         if isinstance(event, AlertDto):
             is_alert_dto = True
-            event = json.loads(json.dumps(event.dict(), default=str))
+            event = json.loads(json.dumps(event.model_dump(), default=str))
 
         for rule in rules:
             attribute = rule.attribute
@@ -411,7 +411,7 @@ class EnrichmentsBl:
                     {"matcher_value": matcher_value},
                 )
             else:
-                enrichments = topology_service.dict(exclude_none=True)
+                enrichments = topology_service.model_dump(exclude_none=True)
                 # repository could be taken from application too
                 if not topology_service.repository and topology_service.applications:
                     for application in topology_service.applications:

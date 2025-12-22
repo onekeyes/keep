@@ -1383,13 +1383,13 @@ def test_alerts_enrichment_in_search(db_session, client, test_app, elastic_clien
     client.post(
         "/alerts/event",
         headers={"x-api-key": "some-key"},
-        json=alert_low_dto.dict(),
+        json=alert_low_dto.model_dump(),
     )
     # And another with them
     client.post(
         "/alerts/event",
         headers={"x-api-key": "some-key"},
-        json=alert_high_dto.dict(),
+        json=alert_high_dto.model_dump(),
     )
 
     while len(client.get("/alerts", headers={"x-api-key": "some-key"}).json()) != 2:
@@ -1415,7 +1415,7 @@ def test_alerts_enrichment_in_search(db_session, client, test_app, elastic_clien
     ).search_alerts(search_query_low)
     assert len(elastic_filtered_low_alerts) == 1
 
-    elastic_filtered_low_alert = elastic_filtered_low_alerts[0].dict()
+    elastic_filtered_low_alert = elastic_filtered_low_alerts[0].model_dump()
 
     assert "enriched_fields" in elastic_filtered_low_alert
     assert elastic_filtered_low_alert["enriched_fields"] == [
@@ -1428,7 +1428,7 @@ def test_alerts_enrichment_in_search(db_session, client, test_app, elastic_clien
     )
     assert len(elastic_filtered_alerts) == 1
 
-    elastic_filtered_alert = elastic_filtered_alerts[0].dict()
+    elastic_filtered_alert = elastic_filtered_alerts[0].model_dump()
 
     assert "note" in elastic_filtered_alert
     assert elastic_filtered_alert["note"] == "test note"
@@ -1442,7 +1442,7 @@ def test_alerts_enrichment_in_search(db_session, client, test_app, elastic_clien
     )
     assert len(db_filtered_alerts) == 1
 
-    db_filtered_alert = db_filtered_alerts[0].dict()
+    db_filtered_alert = db_filtered_alerts[0].model_dump()
 
     assert "note" in db_filtered_alert
     assert db_filtered_alert["note"] == "test note"

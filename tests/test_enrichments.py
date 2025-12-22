@@ -411,7 +411,7 @@ def test_mapping_rule_with_elastic(mock_session, mock_alert_dto, setup_alerts):
     import os
 
     # first, use elastic
-    with patch.dict(os.environ, {"ELASTIC_ENABLED": "true"}):
+    with patch.model_dump(os.environ, {"ELASTIC_ENABLED": "true"}):
         # Setup a mapping rule with || condition in matchers
         rule = MappingRule(
             id=1,
@@ -462,7 +462,7 @@ def test_enrichment_with_elastic(
     response = client.post(
         "/alerts/event",
         headers={"x-api-key": "some-key-everything-works-because-no-auth"},
-        json=mock_alert_dto.dict(),
+        json=mock_alert_dto.model_dump(),
     )
 
     # wait for the alert to be indexed
@@ -503,7 +503,7 @@ def test_enrichment(db_session, client, test_app, mock_alert_dto):
     response = client.post(
         "/alerts/event",
         headers={"x-api-key": "some-key-everything-works-because-no-auth"},
-        json=mock_alert_dto.dict(),
+        json=mock_alert_dto.model_dump(),
     )
     sleep(1)
 
@@ -541,7 +541,7 @@ def test_disposable_enrichment(db_session, client, test_app, mock_alert_dto):
     response = client.post(
         "/alerts/event",
         headers={"x-api-key": "some-key"},
-        json=mock_alert_dto.dict(),
+        json=mock_alert_dto.model_dump(),
     )
 
     while (
@@ -588,7 +588,7 @@ def test_disposable_enrichment(db_session, client, test_app, mock_alert_dto):
     response = client.post(
         "/alerts/event",
         headers={"x-api-key": "some-key"},
-        json=mock_alert_dto.dict(),
+        json=mock_alert_dto.model_dump(),
     )
     # 5. get the alert with the new status
     response = client.get(
@@ -790,7 +790,7 @@ def test_disposable_enrichment_and_alert_history(
     response = client.post(
         "/alerts/event",
         headers={"x-api-key": "some-key"},
-        json=mock_alert_dto.dict(),
+        json=mock_alert_dto.model_dump(),
     )
     assert response.status_code == 202
 
@@ -830,7 +830,7 @@ def test_disposable_enrichment_and_alert_history(
     response = client.post(
         "/alerts/event",
         headers={"x-api-key": "some-key"},
-        json=mock_alert_dto.dict(),
+        json=mock_alert_dto.model_dump(),
     )
     assert response.status_code == 202
 

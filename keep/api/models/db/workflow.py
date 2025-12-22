@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
+from pydantic import ConfigDict
 from sqlalchemy import TEXT, DateTime, Index, PrimaryKeyConstraint, func
 from sqlmodel import JSON, Column, Field, Relationship, SQLModel, UniqueConstraint
 
@@ -38,8 +39,7 @@ class Workflow(SQLModel, table=True):
     executions: List["WorkflowExecution"] = Relationship(back_populates="workflow")
     versions: List["WorkflowVersion"] = Relationship(back_populates="workflow")
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class WorkflowVersion(SQLModel, table=True):
@@ -165,8 +165,7 @@ class WorkflowExecution(SQLModel, table=True):
         back_populates="workflow_execution"
     )
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class WorkflowToAlertExecution(SQLModel, table=True):
@@ -202,5 +201,4 @@ class WorkflowExecutionLog(SQLModel, table=True):
     workflowexecution: Optional[WorkflowExecution] = Relationship(back_populates="logs")
     context: dict = Field(sa_column=Column(JSON))
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

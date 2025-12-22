@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
+from pydantic import ConfigDict
 from sqlalchemy import TEXT, UniqueConstraint
 from sqlmodel import JSON, Column, Field, ForeignKey, Index, SQLModel
 
@@ -27,9 +28,7 @@ class Provider(SQLModel, table=True):
         sa_column=Column(JSON)
     )  # metadata about the provider, e.g: {"version": "1.0.0"}
 
-    class Config:
-        orm_mode = True
-        unique_together = ["tenant_id", "name"]
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ProviderExecutionLog(SQLModel, table=True):
@@ -50,5 +49,4 @@ class ProviderExecutionLog(SQLModel, table=True):
     context: dict = Field(sa_column=Column(JSON), default={})
     execution_id: Optional[str] = None  # To group related logs together
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

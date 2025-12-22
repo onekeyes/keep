@@ -3518,7 +3518,7 @@ def update_action(
             .where(Action.tenant_id == tenant_id)
         ).first()
         if found_action:
-            for key, value in update_payload.dict(exclude_unset=True).items():
+            for key, value in update_payload.model_dump(exclude_unset=True).items():
                 if hasattr(found_action, key):
                     setattr(found_action, key, value)
             session.commit()
@@ -4053,7 +4053,7 @@ def create_incident_from_dto(
             "user_summary": incident_dto.user_summary,
             "generated_summary": incident_dto.description,
             "user_generated_name": incident_dto.user_generated_name,
-            "ai_generated_name": incident_dto.dict().get("name"),
+            "ai_generated_name": incident_dto.model_dump().get("name"),
             "assignee": incident_dto.assignee,
             "is_predicted": False,  # its not a prediction, but an AI generation
             "is_candidate": False,  # confirmed by the user :)
@@ -4063,12 +4063,12 @@ def create_incident_from_dto(
 
     elif issubclass(type(incident_dto), IncidentDto):
         # we will reach this block when incident is pulled from a provider
-        incident_dict = incident_dto.to_db_incident().dict()
+        incident_dict = incident_dto.to_db_incident().model_dump()
         if "incident_type" not in incident_dict:
             incident_dict["incident_type"] = IncidentType.MANUAL.value
     else:
         # We'll reach this block when a user creates an incident
-        incident_dict = incident_dto.dict()
+        incident_dict = incident_dto.model_dump()
         # Keep existing incident_type if present, default to MANUAL if not
         if "incident_type" not in incident_dict:
             incident_dict["incident_type"] = IncidentType.MANUAL.value
@@ -4120,7 +4120,7 @@ def update_incident_from_dto_by_id(
             updated_data = updated_incident_dto.to_db_incident().model_dump()
         else:
             # When a user updates an Incident
-            updated_data = updated_incident_dto.dict()
+            updated_data = updated_incident_dto.model_dump()
 
         for key, value in updated_data.items():
             # Update only if the new value is different from the current one

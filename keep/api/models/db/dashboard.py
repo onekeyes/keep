@@ -1,6 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
+from pydantic import ConfigDict
 from sqlalchemy import UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSON
 from sqlmodel import Column, Field, SQLModel
@@ -24,5 +25,4 @@ class Dashboard(SQLModel, table=True):
         ),
     )
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)

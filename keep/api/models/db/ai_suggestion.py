@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Dict, List, Optional
 from uuid import UUID, uuid4
 
+from pydantic import ConfigDict
 from sqlmodel import JSON, Column, Field, Relationship, SQLModel
 
 
@@ -31,8 +32,7 @@ class AISuggestion(SQLModel, table=True):
 
     feedbacks: List["AIFeedback"] = Relationship(back_populates="suggestion")
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class AIFeedback(SQLModel, table=True):
@@ -49,5 +49,4 @@ class AIFeedback(SQLModel, table=True):
 
     suggestion: AISuggestion = Relationship(back_populates="feedbacks")
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)

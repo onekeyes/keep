@@ -68,7 +68,7 @@ def test_provision_provider_from_yaml(temp_providers_dir, sample_provider_yaml, 
     )
 
     # Mock environment variables
-    with patch.dict(os.environ, {"KEEP_PROVIDERS_DIRECTORY": temp_providers_dir}):
+    with patch.model_dump(os.environ, {"KEEP_PROVIDERS_DIRECTORY": temp_providers_dir}):
         with patch(
             "keep.providers.providers_service.ProvidersService.is_provider_installed",
             return_value=False,
@@ -117,7 +117,7 @@ def test_skip_existing_provider(temp_providers_dir, sample_provider_yaml):
         f.write(sample_provider_yaml)
 
     # Mock environment variables
-    with patch.dict(os.environ, {"KEEP_PROVIDERS_DIRECTORY": temp_providers_dir}):
+    with patch.model_dump(os.environ, {"KEEP_PROVIDERS_DIRECTORY": temp_providers_dir}):
         # Mock database operations to simulate existing provider
         with patch(
             "keep.providers.providers_service.ProvidersService.is_provider_installed",
@@ -140,7 +140,7 @@ def test_invalid_yaml_file(temp_providers_dir):
         f.write("invalid: yaml: content: -")
 
     # Mock environment variables
-    with patch.dict(os.environ, {"KEEP_PROVIDERS_DIRECTORY": temp_providers_dir}):
+    with patch.model_dump(os.environ, {"KEEP_PROVIDERS_DIRECTORY": temp_providers_dir}):
         # Mock database operations
         with patch(
             "keep.providers.providers_service.ProvidersService.is_provider_installed",
@@ -170,7 +170,7 @@ authentication:
         )
 
     # Mock environment variables
-    with patch.dict(os.environ, {"KEEP_PROVIDERS_DIRECTORY": temp_providers_dir}):
+    with patch.model_dump(os.environ, {"KEEP_PROVIDERS_DIRECTORY": temp_providers_dir}):
         # Mock database operations
         with patch(
             "keep.providers.providers_service.ProvidersService.is_provider_installed",

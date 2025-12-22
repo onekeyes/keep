@@ -40,7 +40,7 @@ def process_incident(
 
         if logger.getEffectiveLevel() == logging.DEBUG:
             # Lets log the incidents in debug mode
-            extra["incident"] = [i.dict() for i in incidents]
+            extra["incident"] = [i.model_dump() for i in incidents]
 
         incident_bl = IncidentBl(tenant_id, session)
 

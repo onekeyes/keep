@@ -106,7 +106,7 @@ def create_rule(
 ) -> MappingRule:
     logger.info("Creating a new mapping rule")
     new_rule = MappingRule(
-        **rule.dict(),
+        **rule.model_dump(),
         tenant_id=authenticated_entity.tenant_id,
         created_by=authenticated_entity.email,
     )
@@ -178,7 +178,7 @@ def update_rule(
         existing_rule.rows = rule.rows
     session.commit()
     session.refresh(existing_rule)
-    response = MappingRuleDtoOut(**existing_rule.dict())
+    response = MappingRuleDtoOut(**existing_rule.model_dump())
     if rule.rows is not None:
         response.attributes = [
             key for key in existing_rule.rows[0].keys() if key not in rule.matchers

@@ -276,7 +276,7 @@ class AISuggestionBl:
                 user_id=user_id,
                 suggestion_input=suggestion_input,
                 suggestion_type=AISuggestionType.INCIDENT_SUGGESTION,
-                suggestion_content=incident_clustering.dict(),
+                suggestion_content=incident_clustering.model_dump(),
                 model=OPENAI_MODEL_NAME,
             )
 
@@ -354,14 +354,14 @@ class AISuggestionBl:
         """Prepare system and user prompts for AI."""
         alert_descriptions = "\n".join(
             [
-                f"Alert {idx+1}: {json.dumps(alert.dict())}"
+                f"Alert {idx+1}: {json.dumps(alert.model_dump())}"
                 for idx, alert in enumerate(alerts_dto)
             ]
         )
 
         topology_text = "\n".join(
             [
-                f"Topology {idx+1}: {json.dumps(topology.dict(), default=str)}"
+                f"Topology {idx+1}: {json.dumps(topology.model_dump(), default=str)}"
                 for idx, topology in enumerate(topology_data)
             ]
         )
