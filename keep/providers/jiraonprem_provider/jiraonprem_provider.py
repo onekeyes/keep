@@ -7,7 +7,7 @@ import json
 from typing import List
 from urllib.parse import urlencode, urljoin
 
-import pydantic
+import pydantic as pydantic
 import requests
 
 from keep.contextmanager.contextmanager import ContextManager

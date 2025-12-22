@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List, Optional
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy import DateTime, ForeignKey
 from sqlmodel import JSON, Column, Field, Relationship, SQLModel, func
 
@@ -77,9 +77,7 @@ class TopologyService(SQLModel, table=True):
         back_populates="services", link_model=TopologyServiceApplication
     )
 
-    class Config:
-        orm_mode = True
-        unique_together = ["tenant_id", "service", "environment", "source_provider_id"]
+    model_config = ConfigDict(from_attributes=True)
 
 
 class TopologyServiceDependency(SQLModel, table=True):
@@ -113,7 +111,7 @@ class TopologyServiceDependency(SQLModel, table=True):
     )
 
 
-class TopologyServiceDtoBase(BaseModel, extra="ignore"):
+class TopologyServiceDtoBase(BaseModel):
     source_provider_id: Optional[str]
     repository: Optional[str] = None
     tags: Optional[List[str]] = None
@@ -130,6 +128,7 @@ class TopologyServiceDtoBase(BaseModel, extra="ignore"):
     manufacturer: Optional[str] = None
     namespace: Optional[str] = None
     is_manual: Optional[bool] = False
+    model_config = ConfigDict(extra="ignore")
 
 
 class TopologyServiceInDto(TopologyServiceDtoBase):
@@ -139,11 +138,12 @@ class TopologyServiceInDto(TopologyServiceDtoBase):
     )
 
 
-class TopologyServiceDependencyDto(BaseModel, extra="ignore"):
+class TopologyServiceDependencyDto(BaseModel):
     id: Optional[str] = None
     serviceId: str
     serviceName: str
     protocol: Optional[str] = "unknown"
+    model_config = ConfigDict(extra="ignore")
 
     @classmethod
     def from_orm(cls, db_dependency: TopologyServiceDependency):
@@ -155,7 +155,7 @@ class TopologyServiceDependencyDto(BaseModel, extra="ignore"):
         )
 
 
-class TopologyApplicationDto(BaseModel, extra="ignore"):
+class TopologyApplicationDto(BaseModel):
     id: UUID
     name: str
     description: Optional[str] = None
@@ -163,24 +163,28 @@ class TopologyApplicationDto(BaseModel, extra="ignore"):
     services: List[TopologyService] = Relationship(
         back_populates="applications", link_model="TopologyServiceApplication"
     )
+    model_config = ConfigDict(extra="ignore")
 
 
-class TopologyServiceDtoIn(BaseModel, extra="ignore"):
+class TopologyServiceDtoIn(BaseModel):
     id: int
+    model_config = ConfigDict(extra="ignore")
 
 
-class TopologyApplicationDtoIn(BaseModel, extra="ignore"):
+class TopologyApplicationDtoIn(BaseModel):
     id: Optional[UUID] = None
     name: str
     description: str = ""
     repository: str = ""
     services: List[TopologyServiceDtoIn] = []
+    model_config = ConfigDict(extra="ignore")
 
 
-class TopologyApplicationServiceDto(BaseModel, extra="ignore"):
+class TopologyApplicationServiceDto(BaseModel):
     id: str
     name: str
     service: str
+    model_config = ConfigDict(extra="ignore")
 
     @classmethod
     def from_orm(cls, service: "TopologyService") -> "TopologyApplicationServiceDto":
@@ -252,7 +256,7 @@ class TopologyServiceDtoOut(TopologyServiceDtoBase):
         )
 
 
-class TopologyServiceCreateRequestDTO(BaseModel, extra="ignore"):
+class TopologyServiceCreateRequestDTO(BaseModel):
     repository: Optional[str] = None
     tags: Optional[List[str]] = None
     service: str
@@ -267,31 +271,35 @@ class TopologyServiceCreateRequestDTO(BaseModel, extra="ignore"):
     category: Optional[str] = None
     manufacturer: Optional[str] = None
     namespace: Optional[str] = None
+    model_config = ConfigDict(extra="ignore")
 
 
-class TopologyServiceUpdateRequestDTO(TopologyServiceCreateRequestDTO, extra="ignore"):
+class TopologyServiceUpdateRequestDTO(TopologyServiceCreateRequestDTO):
     id: int
+    model_config = ConfigDict(extra="ignore")
 
 
-class TopologyServiceDependencyCreateRequestDto(BaseModel, extra="ignore"):
+class TopologyServiceDependencyCreateRequestDto(BaseModel):
     service_id: int
     depends_on_service_id: int
     protocol: Optional[str] = "unknown"
+    model_config = ConfigDict(extra="ignore")
 
 
-class TopologyServiceDependencyUpdateRequestDto(
-    TopologyServiceDependencyCreateRequestDto, extra="ignore"
-):
+class TopologyServiceDependencyUpdateRequestDto(TopologyServiceDependencyCreateRequestDto):
     service_id: Optional[int]
     depends_on_service_id: Optional[int]
     id: int
+    model_config = ConfigDict(extra="ignore")
 
 
-class DeleteServicesRequest(BaseModel, extra="ignore"):
+class DeleteServicesRequest(BaseModel):
     service_ids: List[int]
+    model_config = ConfigDict(extra="ignore")
 
 
-class TopologyServiceYAML(TopologyServiceCreateRequestDTO, extra="ignore"):
+class TopologyServiceYAML(TopologyServiceCreateRequestDTO):
     id: int
     source_provider_id: Optional[str] = None
     is_manual: Optional[bool] = None
+    model_config = ConfigDict(extra="ignore")

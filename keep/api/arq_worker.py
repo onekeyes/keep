@@ -1,5 +1,6 @@
 import asyncio
 import functools
+import importlib
 import logging
 from concurrent.futures import ThreadPoolExecutor
 from typing import Optional
@@ -9,7 +10,6 @@ import redis
 from arq import Worker, cron
 from arq.worker import create_worker
 from dotenv import find_dotenv, load_dotenv
-from pydantic.utils import import_string
 from starlette.datastructures import CommaSeparatedStrings
 
 import keep.api.logging
@@ -55,6 +55,14 @@ ARQ_BACKGROUND_FUNCTIONS: Optional[CommaSeparatedStrings] = config(
     cast=CommaSeparatedStrings,
     default=[task for task, _ in all_tasks_for_the_worker],
 )
+
+def import_string(path: str):
+    module_path, _, attribute = path.rpartition(".")
+    if not module_path:
+        raise ImportError(f"Invalid import path: {path}")
+    module = importlib.import_module(module_path)
+    return getattr(module, attribute)
+
 
 FUNCTIONS: list = (
     [

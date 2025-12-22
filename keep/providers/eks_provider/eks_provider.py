@@ -6,7 +6,7 @@ import dataclasses
 import logging
 
 import boto3
-import pydantic
+import pydantic as pydantic
 from kubernetes import client, config
 from kubernetes.stream import stream
 

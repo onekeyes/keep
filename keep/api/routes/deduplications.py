@@ -64,7 +64,7 @@ def create_deduplication_rule(
     tenant_id = authenticated_entity.tenant_id
     logger.info(
         "Creating deduplication rule",
-        extra={"tenant_id": tenant_id, "rule": rule.dict()},
+        extra={"tenant_id": tenant_id, "rule": rule.model_dump()},
     )
     alert_deduplicator = AlertDeduplicator(tenant_id)
     try:

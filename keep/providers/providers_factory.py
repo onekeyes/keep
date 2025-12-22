@@ -236,7 +236,7 @@ class ProvidersFactory:
                         expected_values=expected_values,
                     )
                 )
-            if "func_params" in method.dict():
+            if "func_params" in method.model_dump():
                 if method.func_params:
                     # this should not happen
                     logging.getLogger(__name__).warning(
@@ -246,7 +246,7 @@ class ProvidersFactory:
                 else:
                     delattr(method, "func_params")
 
-            methods.append(ProviderMethodDTO(**method.dict(), func_params=func_params))
+            methods.append(ProviderMethodDTO(**method.model_dump(), func_params=func_params))
         return methods
 
     @staticmethod
@@ -697,4 +697,4 @@ class ProviderEncoder(json.JSONEncoder):
             return dct
         elif isinstance(o, _MISSING_TYPE):
             return None
-        return o.dict()
+        return o.model_dump()

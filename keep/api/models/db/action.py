@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
+from pydantic import ConfigDict
 from sqlalchemy import UniqueConstraint
 from sqlmodel import Column, Field, SQLModel, TEXT
 
@@ -17,6 +18,4 @@ class Action(SQLModel, table=True):
     installed_by: str
     installation_time: datetime
    
-    class Config:
-        orm_mode = True
-        unique_together = ["tenant_id", "name", "use"]
+    model_config = ConfigDict(from_attributes=True)

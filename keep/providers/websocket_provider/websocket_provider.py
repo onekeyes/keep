@@ -2,7 +2,7 @@
 WebsocketProvider is a class that implements a simple websocket provider.
 """
 
-import pydantic
+import pydantic as pydantic
 import websocket
 import websocket._exceptions
 

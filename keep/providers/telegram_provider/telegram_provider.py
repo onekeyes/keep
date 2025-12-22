@@ -6,7 +6,7 @@ import asyncio
 import dataclasses
 from typing import Literal, Optional
 
-import pydantic
+import pydantic as pydantic
 import telegram
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode

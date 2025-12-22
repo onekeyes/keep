@@ -89,7 +89,7 @@ class IncidentBl:
         """
         self.logger.info(
             "Creating incident",
-            extra={"incident_dto": incident_dto.dict(), "tenant_id": self.tenant_id},
+            extra={"incident_dto": incident_dto.model_dump(), "tenant_id": self.tenant_id},
         )
         incident = create_incident_from_dto(
             self.tenant_id,

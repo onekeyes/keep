@@ -1,17 +1,18 @@
 from typing import List, Optional, Set
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 
 
-class Group(BaseModel, extra=Extra.ignore):
+class Group(BaseModel):
     id: str
     name: str
     roles: list[str] = []
     members: list[str] = []
     memberCount: int = 0
+    model_config = ConfigDict(extra="ignore")
 
 
-class User(BaseModel, extra=Extra.ignore):
+class User(BaseModel):
     email: str
     name: str
     role: Optional[str] = None
@@ -20,6 +21,7 @@ class User(BaseModel, extra=Extra.ignore):
     last_login: Optional[str]
     ldap: Optional[bool] = False
     groups: Optional[list[Group]] = []
+    model_config = ConfigDict(extra="ignore")
 
 
 class Role(BaseModel):

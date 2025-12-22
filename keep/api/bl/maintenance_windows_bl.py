@@ -125,7 +125,7 @@ class MaintenanceWindowsBl:
         prgm = environment.program(ast)
 
         if isinstance(alert, AlertDto):
-            payload = alert.dict()
+            payload = alert.model_dump()
         else:
             payload = alert.event
         # todo: fix this in the future

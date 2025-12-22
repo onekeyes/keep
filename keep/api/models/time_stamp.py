@@ -2,7 +2,7 @@ import json
 from typing import Optional
 
 from fastapi import Query, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
 
 
@@ -10,8 +10,7 @@ class TimeStampFilter(BaseModel):
     lower_timestamp: Optional[datetime] = Field(None, alias="start")
     upper_timestamp: Optional[datetime] = Field(None, alias="end")
 
-    class Config:
-        allow_population_by_field_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
 
 # Function to handle the time_stamp query parameter and parse it

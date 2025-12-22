@@ -5,7 +5,7 @@ VictoriametricsProvider is a class that allows to install webhooks and get alert
 import dataclasses
 import datetime
 
-import pydantic
+import pydantic as pydantic
 import requests
 from pydantic import AnyHttpUrl
 

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, SecretStr, validator
+from pydantic import BaseModel, ConfigDict, SecretStr, field_validator
 
 
 class SMTPSettings(BaseModel):
@@ -13,14 +13,15 @@ class SMTPSettings(BaseModel):
     # Only for testing
     to_email: Optional[str] = "keep@example.com"
 
-    @validator("from_email", "to_email")
+    @field_validator("from_email", "to_email")
     def email_validator(cls, v):
         if "@" not in v or "." not in v:
             raise ValueError("Invalid email address")
         return v
 
-    class Config:
-        schema_extra = {
+    model_config = ConfigDict(
+        validate_default=True,
+        json_schema_extra={
             "example": {
                 "host": "smtp.example.com",
                 "port": 587,
@@ -30,4 +31,5 @@ class SMTPSettings(BaseModel):
                 "from_email": "noreply@example.com",
                 "to_email": "",
             }
-        }
+        },
+    )

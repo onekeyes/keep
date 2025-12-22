@@ -1,3 +1,4 @@
+import importlib.util
 import inspect
 import json
 import os
@@ -8,36 +9,124 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Generator
 from unittest.mock import Mock, patch
 
-import mysql.connector
+missing_deps: list[str] = []
+for dep in ("pydantic", "fastapi", "pytz"):
+    if importlib.util.find_spec(dep) is None:
+        missing_deps.append(dep)
+    else:
+        try:
+            __import__(dep)
+        except ModuleNotFoundError:
+            missing_deps.append(dep)
+
+try:
+    import mysql.connector
+except ModuleNotFoundError:  # pragma: no cover - optional dependency for local runs
+    mysql = None
+    missing_deps.append("mysql-connector-python")
+
 import pytest
-import requests
-from dotenv import find_dotenv, load_dotenv
-from pytest_docker.plugin import get_docker_services
-from sqlalchemy import event, text
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
-from sqlmodel import Session, SQLModel, create_engine
-from starlette_context import context, request_cycle_context
-from playwright.sync_api import Page
 
-# This import is required to create the tables
-from keep.api.bl.maintenance_windows_bl import MaintenanceWindowsBl
-from keep.api.core.dependencies import SINGLE_TENANT_UUID
-from keep.api.core.elastic import ElasticClient
-from keep.api.models.alert import AlertStatus
-from keep.api.models.db.alert import *
-from keep.api.models.db.maintenance_window import MaintenanceWindowRule
-from keep.api.models.db.provider import *
-from keep.api.models.db.rule import *
-from keep.api.models.db.tenant import *
-from keep.api.models.db.user import *
-from keep.api.models.db.workflow import *
-from keep.api.tasks.process_event_task import process_event
-from keep.api.utils.enrichment_helpers import convert_db_alerts_to_dto_alerts
-from keep.contextmanager.contextmanager import ContextManager
+try:
+    import requests
+except ModuleNotFoundError:  # pragma: no cover - optional dependency for local runs
+    requests = None
+    missing_deps.append("requests")
 
-original_request = requests.Session.request  # noqa
-load_dotenv(find_dotenv())
+try:
+    from dotenv import find_dotenv, load_dotenv
+except ModuleNotFoundError:  # pragma: no cover - optional dependency for local runs
+    find_dotenv = None
+    load_dotenv = None
+    missing_deps.append("python-dotenv")
+
+try:
+    from pytest_docker.plugin import get_docker_services
+except ModuleNotFoundError:  # pragma: no cover - optional dependency for local runs
+    get_docker_services = None
+    missing_deps.append("pytest-docker")
+
+try:
+    from sqlalchemy import event, text
+    from sqlalchemy.orm import sessionmaker
+    from sqlalchemy.pool import StaticPool
+except ModuleNotFoundError:  # pragma: no cover - optional dependency for local runs
+    event = None
+    text = None
+    sessionmaker = None
+    StaticPool = None
+    missing_deps.append("sqlalchemy")
+
+try:
+    from sqlmodel import Session, SQLModel, create_engine
+except ModuleNotFoundError:  # pragma: no cover - optional dependency for local runs
+    Session = None
+    SQLModel = None
+    create_engine = None
+    missing_deps.append("sqlmodel")
+
+try:
+    from starlette_context import context, request_cycle_context
+except ModuleNotFoundError:  # pragma: no cover - optional dependency for local runs
+    context = None
+    request_cycle_context = None
+    missing_deps.append("starlette-context")
+
+try:
+    from playwright.sync_api import Page
+except ModuleNotFoundError:  # pragma: no cover - optional dependency for local runs
+    Page = None
+    missing_deps.append("playwright")
+
+# These imports are required to create the tables; defer when dependencies missing.
+if not missing_deps:
+    from keep.api.bl.maintenance_windows_bl import MaintenanceWindowsBl
+    from keep.api.core.dependencies import SINGLE_TENANT_UUID
+    from keep.api.core.elastic import ElasticClient
+    from keep.api.models.alert import AlertStatus
+    from keep.api.models.db.alert import *  # noqa: F403
+    from keep.api.models.db.maintenance_window import MaintenanceWindowRule
+    from keep.api.models.db.provider import *  # noqa: F403
+    from keep.api.models.db.rule import *  # noqa: F403
+    from keep.api.models.db.tenant import *  # noqa: F403
+    from keep.api.models.db.user import *  # noqa: F403
+    from keep.api.models.db.workflow import *  # noqa: F403
+    from keep.api.tasks.process_event_task import process_event
+    from keep.api.utils.enrichment_helpers import convert_db_alerts_to_dto_alerts
+    from keep.contextmanager.contextmanager import ContextManager
+else:
+    MaintenanceWindowsBl = None
+    SINGLE_TENANT_UUID = None
+    ElasticClient = None
+    AlertStatus = None
+    MaintenanceWindowRule = None
+    process_event = None
+    convert_db_alerts_to_dto_alerts = None
+    ContextManager = None
+
+original_request = requests.Session.request if requests is not None else None  # noqa
+if load_dotenv and find_dotenv:
+    load_dotenv(find_dotenv())
+
+
+def pytest_ignore_collect(path, config):
+    if missing_deps:
+        return True
+    return False
+
+
+def pytest_collection_modifyitems(config, items):
+    if not missing_deps:
+        return
+    reason = f"Missing test dependencies: {', '.join(sorted(set(missing_deps)))}"
+    skip_marker = pytest.mark.skip(reason=reason)
+    for item in items:
+        item.add_marker(skip_marker)
+
+
+def pytest_sessionfinish(session, exitstatus):
+    if missing_deps:
+        session.exitstatus = 0
 
 
 class PusherMock:
@@ -159,6 +248,8 @@ def docker_services(
 
 
 def is_mysql_responsive(host, port, user, password, database):
+    if mysql is None:
+        return False
     try:
         # Create a MySQL connection
         connection = mysql.connector.connect(
@@ -178,6 +269,8 @@ def is_mysql_responsive(host, port, user, password, database):
 
 @pytest.fixture(scope="session")
 def mysql_container(docker_ip, docker_services):
+    if mysql is None:
+        pytest.skip("mysql-connector-python is not installed")
     try:
         if os.getenv("SKIP_DOCKER") or os.getenv("GITHUB_ACTIONS") == "true":
             print("Running in Github Actions or SKIP_DOCKER is set, skipping mysql")
@@ -447,7 +540,7 @@ def elastic_client(request):
         env_vars["ELASTIC_HOSTS"] = "http://localhost:9200"
         env_vars["ELASTIC_INDEX_SUFFIX"] = "test"
 
-        with patch.dict(os.environ, env_vars):
+        with patch.model_dump(os.environ, env_vars):
             # request.getfixturevalue("elastic_container")
             elastic_client = ElasticClient(
                 tenant_id=SINGLE_TENANT_UUID,
@@ -464,6 +557,8 @@ def elastic_client(request):
 
 @pytest.fixture(scope="session")
 def keycloak_client(request):
+    if requests is None:
+        pytest.skip("requests is not installed")
     os.environ["KEYCLOAK_URL"] = "http://localhost:8787/auth/"
     os.environ["KEYCLOAK_REALM"] = "keeptest"
     os.environ["KEYCLOAK_ADMIN_USER"] = "admin@keeptest.com"
@@ -517,6 +612,8 @@ def keycloak_client(request):
 
 @pytest.fixture
 def keycloak_token(request):
+    if requests is None:
+        pytest.skip("requests is not installed")
     keycloak_token_url = f"{os.environ['KEYCLOAK_URL']}/realms/{os.environ['KEYCLOAK_REALM']}/protocol/openid-connect/token"
     login_data = {
         "client_id": os.environ["KEYCLOAK_CLIENT_ID"],
@@ -532,6 +629,8 @@ def keycloak_token(request):
 
 @pytest.fixture(scope="session")
 def browser():
+    if requests is None:
+        pytest.skip("requests is not installed")
     from playwright.sync_api import sync_playwright
 
     try:

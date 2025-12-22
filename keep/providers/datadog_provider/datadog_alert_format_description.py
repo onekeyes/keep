@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Thresholds(BaseModel):
@@ -89,8 +89,8 @@ class DatadogAlertFormatDescription(BaseModel):
         "error-tracking alert",
     ]
 
-    class Config:
-        schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "name": "Example-Monitor",
                 "type": "rum alert",

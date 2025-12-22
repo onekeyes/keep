@@ -7,11 +7,11 @@ from uuid import UUID
 
 from pydantic import (
     BaseModel,
-    Extra,
+    ConfigDict,
     Field,
     PrivateAttr,
-    validator,
-    root_validator,
+    field_validator,
+    model_validator,
 )
 from sqlmodel import col, desc
 
@@ -24,7 +24,7 @@ class IncidentStatusChangeDto(BaseModel):
     comment: str | None
     tagged_users: list[str] = []
     
-    @validator('tagged_users')
+    @field_validator("tagged_users")
     @classmethod
     def validate_no_duplicate_users(cls, value):
         """Ensure there are no duplicate users in the tagged_users list."""
@@ -46,9 +46,9 @@ class IncidentDtoIn(BaseModel):
     same_incident_in_the_past_id: UUID | None
     severity: IncidentSeverity | None
 
-    class Config:
-        extra = Extra.allow
-        schema_extra = {
+    model_config = ConfigDict(
+        extra="allow",
+        json_schema_extra={
             "examples": [
                 {
                     "id": "c2509cb3-6168-4347-b83b-a41da9df2d5b",
@@ -57,7 +57,8 @@ class IncidentDtoIn(BaseModel):
                     "status": "firing",
                 }
             ]
-        }
+        },
+    )
 
 
 class IncidentDto(IncidentDtoIn):
@@ -118,18 +119,18 @@ class IncidentDto(IncidentDtoIn):
 
     def __str__(self) -> str:
         # Convert the model instance to a dictionary
-        model_dict = self.dict()
+        model_dict = self.model_dump()
         return json.dumps(model_dict, indent=4, default=str)
 
-    class Config:
-        extra = Extra.allow
-        schema_extra = IncidentDtoIn.Config.schema_extra
-        underscore_attrs_are_private = True
-
-        json_encoders = {
+    model_config = ConfigDict(
+        extra="allow",
+        json_schema_extra=IncidentDtoIn.model_config.get("json_schema_extra"),
+        underscore_attrs_are_private=True,
+        json_encoders={
             # Converts UUID to their values for JSON serialization
             UUID: lambda v: str(v),
-        }
+        },
+    )
 
     @property
     def name(self):
@@ -155,7 +156,7 @@ class IncidentDto(IncidentDtoIn):
         alerts, _ = get_incident_alerts_by_incident_id(self._tenant_id, str(self.id))
         return convert_db_alerts_to_dto_alerts(alerts)
 
-    @root_validator(pre=True)
+    @model_validator(mode="before")
     def set_default_values(cls, values: Dict[str, Any]) -> Dict[str, Any]:
         # Check and set default status
         status = values.get("status")

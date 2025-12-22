@@ -453,7 +453,7 @@ class TopologiesService:
         try:
             # Setting is_manual to True since this service is created manually.
             db_service = TopologyService(
-                **service.dict(), tenant_id=tenant_id, is_manual=True
+                **service.model_dump(), tenant_id=tenant_id, is_manual=True
             )
             session.add(db_service)
             session.commit()
@@ -476,7 +476,7 @@ class TopologiesService:
 
         try:
             for service in services:
-                db_service = TopologyService(**service.dict(), tenant_id=tenant_id)
+                db_service = TopologyService(**service.model_dump(), tenant_id=tenant_id)
                 session.add(db_service)
 
             session.commit()
@@ -501,7 +501,7 @@ class TopologiesService:
             if not db_service.is_manual:
                 raise ServiceNotManualException()
 
-            service_dict = service.dict()
+            service_dict = service.model_dump()
             if db_service is None:
                 raise ServiceNotFoundException()
             else:  # We update it.
@@ -585,7 +585,7 @@ class TopologiesService:
             ):
                 raise ServiceNotManualException()
 
-            db_dependency = TopologyServiceDependency(**dependency.dict())
+            db_dependency = TopologyServiceDependency(**dependency.model_dump())
             session.add(db_dependency)
             session.commit()
             session.refresh(db_dependency)
@@ -621,7 +621,7 @@ class TopologiesService:
                 ):
                     raise ServiceNotManualException()
 
-                db_dependency = TopologyServiceDependency(**dependency.dict())
+                db_dependency = TopologyServiceDependency(**dependency.model_dump())
                 session.add(db_dependency)
                 db_dependencies.append(db_dependency)
 
@@ -654,7 +654,7 @@ class TopologiesService:
                     _id=dependency.id, session=session
                 )
             )
-            service_dict = dependency.dict()
+            service_dict = dependency.model_dump()
             if db_dependency is None:
                 raise DependencyNotFoundException()
             else:  # We update it.

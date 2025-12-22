@@ -1,7 +1,6 @@
 from typing import Any, Optional
-from pydantic import BaseModel
-import pydantic
 
+from pydantic import BaseModel, field_validator
 from keep.api.models.db.facet import FacetType
 
 class FacetOptionsQueryDto(BaseModel):
@@ -27,14 +26,14 @@ class CreateFacetDto(BaseModel):
     name: str
     description: Optional[str]
 
-    @pydantic.validator('property_path')
+    @field_validator("property_path")
     def name_validator(cls, v: str):
         if not v.strip():
-            raise ValueError('property_path must not be empty')
+            raise ValueError("property_path must not be empty")
         return v
 
-    @pydantic.validator('name')
+    @field_validator("name")
     def property_path_validator(cls, v: str):
         if not v.strip():
-            raise ValueError('name must not be empty')
+            raise ValueError("name must not be empty")
         return v

@@ -2,10 +2,15 @@
 Tests for the FluxCD provider.
 """
 
+import importlib.util
 import unittest
 from unittest.mock import MagicMock, patch
 import sys
 import os
+import pytest
+
+if importlib.util.find_spec("pydantic") is None:
+    pytest.skip("pydantic is not installed", allow_module_level=True)
 
 # Add the parent directory to sys.path to make imports work
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))

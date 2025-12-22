@@ -77,7 +77,7 @@ def process_topology(
     service_to_keep_service_id_map = {}
     # First create the services so we have ids
     for service in topology_data:
-        service_copy = copy.deepcopy(service.dict())
+        service_copy = copy.deepcopy(service.model_dump())
         service_copy.pop("dependencies")
         db_service = TopologyService(**service_copy, tenant_id=tenant_id)
         session.add(db_service)

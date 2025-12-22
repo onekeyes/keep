@@ -64,7 +64,7 @@ def test_sanity(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
 
@@ -114,7 +114,7 @@ def test_sanity_2(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
     db_session.add(alert)
@@ -163,7 +163,7 @@ def test_sanity_3(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
     db_session.add(alert)
@@ -212,7 +212,7 @@ def test_sanity_4(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
     db_session.add(alert)
@@ -263,7 +263,7 @@ def test_incident_attributes(db_session):
             tenant_id=SINGLE_TENANT_UUID,
             provider_type="test",
             provider_id="test",
-            event=alert.dict(),
+            event=alert.model_dump(),
             fingerprint=alert.fingerprint,
             timestamp=alert.lastReceived,
         )
@@ -325,7 +325,7 @@ def test_incident_severity(db_session):
             tenant_id=SINGLE_TENANT_UUID,
             provider_type="test",
             provider_id="test",
-            event=alert.dict(),
+            event=alert.model_dump(),
             fingerprint=alert.fingerprint,
             timestamp=alert.lastReceived,
         )
@@ -886,7 +886,7 @@ def test_at_sign(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
 
@@ -940,7 +940,7 @@ def test_incident_name_template_simple(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
     db_session.add(alert)
@@ -989,7 +989,7 @@ def test_incident_name_template_nested(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
     db_session.add(alert)
@@ -1033,7 +1033,7 @@ def test_incident_name_template_fallback(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
     db_session.add(alert)
@@ -1078,7 +1078,7 @@ def test_incident_name_template_multiple_alerts(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert1.dict(),
+        event=alert1.model_dump(),
         fingerprint=alert1.fingerprint,
     )
     db_session.add(alert)
@@ -1105,7 +1105,7 @@ def test_incident_name_template_multiple_alerts(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert2.dict(),
+        event=alert2.model_dump(),
         fingerprint=alert2.fingerprint,
     )
     db_session.add(alert)
@@ -1148,7 +1148,7 @@ def test_incident_name_template_partial_fields(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
     db_session.add(alert)
@@ -1200,7 +1200,7 @@ def test_incident_name_template_complex_fields(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alerts[0].dict(),
+        event=alerts[0].model_dump(),
         fingerprint=alerts[0].fingerprint,
     )
     db_session.add(alert)
@@ -1248,7 +1248,7 @@ def test_incident_name_template_different_alerts_same_incident(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert1.dict(),
+        event=alert1.model_dump(),
         fingerprint=alert1.fingerprint,
     )
     db_session.add(alert)
@@ -1274,7 +1274,7 @@ def test_incident_name_template_different_alerts_same_incident(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert2.dict(),
+        event=alert2.model_dump(),
         fingerprint=alert2.fingerprint,
     )
     db_session.add(alert)
@@ -1318,7 +1318,7 @@ def test_multiple_incidents_name_template(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert1.dict(),
+        event=alert1.model_dump(),
         fingerprint=alert1.fingerprint,
     )
     db_session.add(alert)
@@ -1346,7 +1346,7 @@ def test_multiple_incidents_name_template(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert2.dict(),
+        event=alert2.model_dump(),
         fingerprint=alert2.fingerprint,
     )
     db_session.add(alert)
@@ -1375,7 +1375,7 @@ def test_multiple_incidents_name_template(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert3.dict(),
+        event=alert3.model_dump(),
         fingerprint=alert3.fingerprint,
     )
     db_session.add(alert)
@@ -1449,7 +1449,7 @@ def test_multiple_incidents_name_template_with_updates(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert1.dict(),
+        event=alert1.model_dump(),
         fingerprint=alert1.fingerprint,
     )
     db_session.add(alert)
@@ -1476,7 +1476,7 @@ def test_multiple_incidents_name_template_with_updates(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert2.dict(),
+        event=alert2.model_dump(),
         fingerprint=alert2.fingerprint,
     )
     db_session.add(alert)
@@ -1502,7 +1502,7 @@ def test_multiple_incidents_name_template_with_updates(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert3.dict(),
+        event=alert3.model_dump(),
         fingerprint=alert3.fingerprint,
     )
     db_session.add(alert)
@@ -1527,7 +1527,7 @@ def test_multiple_incidents_name_template_with_updates(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert4.dict(),
+        event=alert4.model_dump(),
         fingerprint=alert4.fingerprint,
     )
     db_session.add(alert)
@@ -1604,7 +1604,7 @@ def test_incident_created_only_for_firing_alerts(db_session):
             tenant_id=SINGLE_TENANT_UUID,
             provider_type="test",
             provider_id="test",
-            event=alert.dict(),
+            event=alert.model_dump(),
             fingerprint=alert.fingerprint,
         )
         for alert in alerts
@@ -1658,7 +1658,7 @@ def test_same_incident_in_the_past_id_set(db_session, client, test_app):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert1.dict(),
+        event=alert1.model_dump(),
         fingerprint=alert1.fingerprint,
     )
     db_session.add(alert)
@@ -1703,7 +1703,7 @@ def test_same_incident_in_the_past_id_set(db_session, client, test_app):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert2.dict(),
+        event=alert2.model_dump(),
         fingerprint=alert2.fingerprint,
     )
     db_session.add(alert)
@@ -1757,7 +1757,7 @@ def test_correlation_to_incident_candidate(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert_dto.dict(),
+        event=alert_dto.model_dump(),
         fingerprint=alert_dto.fingerprint,
     )
     db_session.add(alert)
@@ -1806,7 +1806,7 @@ def test_incident_prefix_simple(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert.dict(),
+        event=alert.model_dump(),
         fingerprint=alert.fingerprint,
     )
     db_session.add(db_alert)
@@ -1853,7 +1853,7 @@ def test_incident_prefix_with_template(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert.dict(),
+        event=alert.model_dump(),
         fingerprint=alert.fingerprint,
     )
     db_session.add(db_alert)
@@ -1900,7 +1900,7 @@ def test_incident_prefix_multiple_incidents(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert1.dict(),
+        event=alert1.model_dump(),
         fingerprint=alert1.fingerprint,
     )
     db_session.add(db_alert)
@@ -1927,7 +1927,7 @@ def test_incident_prefix_multiple_incidents(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert2.dict(),
+        event=alert2.model_dump(),
         fingerprint=alert2.fingerprint,
     )
     db_session.add(db_alert)
@@ -1954,7 +1954,7 @@ def test_incident_prefix_multiple_incidents(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert3.dict(),
+        event=alert3.model_dump(),
         fingerprint=alert3.fingerprint,
     )
     db_session.add(db_alert)
@@ -2187,7 +2187,7 @@ def test_incident_created_with_assignee(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert.dict(),
+        event=alert.model_dump(),
         fingerprint=alert.fingerprint,
     )
     db_session.add(db_alert)
@@ -2235,7 +2235,7 @@ def test_incident_created_without_assignee(db_session):
         tenant_id=SINGLE_TENANT_UUID,
         provider_type="test",
         provider_id="test",
-        event=alert.dict(),
+        event=alert.model_dump(),
         fingerprint=alert.fingerprint,
     )
     db_session.add(db_alert)

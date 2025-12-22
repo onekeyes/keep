@@ -251,7 +251,7 @@ def __save_to_db(
                 "provider_type": (
                     provider_type if provider_type else formatted_event.source[0]
                 ),
-                "event": formatted_event.dict(),
+                "event": formatted_event.model_dump(),
                 "provider_id": provider_id,
                 "fingerprint": formatted_event.fingerprint,
                 "alert_hash": formatted_event.alert_hash,
@@ -470,7 +470,7 @@ def __handle_formatted_events(
                     },
                 )
                 fields = []
-                for key, value in enriched_formatted_event.dict().items():
+                for key, value in enriched_formatted_event.model_dump().items():
                     if isinstance(value, dict):
                         for nested_key in value.keys():
                             fields.append(f"{key}.{nested_key}")
@@ -859,7 +859,7 @@ def __save_error_alerts(
             # Convert AlertDto to dict if needed
             if isinstance(raw_event, AlertDto):
                 logger.info("Converting AlertDto to dict")
-                raw_event = raw_event.dict()
+                raw_event = raw_event.model_dump()
 
             # TODO: change to debug
             logger.debug(

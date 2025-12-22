@@ -595,7 +595,7 @@ class WorkflowScheduler:
                     )
                     # merge the new enrichment with the original event
                     if new_enrichment:
-                        new_event = event.dict()
+                        new_event = event.model_dump()
                         new_event.update(new_enrichment.enrichments)
                         if isinstance(event, IncidentDto):
                             event = IncidentDto(**new_event)

@@ -6,7 +6,7 @@ import dataclasses
 from typing import Any, Optional
 
 import json5 as json
-import pydantic
+import pydantic as pydantic
 import requests
 
 from keep.contextmanager.contextmanager import ContextManager

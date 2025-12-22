@@ -31,7 +31,7 @@ def get_maintenance_rules(
         .filter(MaintenanceWindowRule.tenant_id == authenticated_entity.tenant_id)
         .all()
     )
-    return [MaintenanceRuleRead(**rule.dict()) for rule in rules]
+    return [MaintenanceRuleRead(**rule.model_dump()) for rule in rules]
 
 
 @router.post(
@@ -46,7 +46,7 @@ def create_maintenance_rule(
 ) -> MaintenanceRuleRead:
     end_time = rule_dto.start_time + timedelta(seconds=rule_dto.duration_seconds)
     new_rule = MaintenanceWindowRule(
-        **rule_dto.dict(),
+        **rule_dto.model_dump(),
         end_time=end_time,
         created_by=authenticated_entity.email,
         tenant_id=authenticated_entity.tenant_id,
@@ -54,7 +54,7 @@ def create_maintenance_rule(
     session.add(new_rule)
     session.commit()
     session.refresh(new_rule)
-    return MaintenanceRuleRead(**new_rule.dict())
+    return MaintenanceRuleRead(**new_rule.model_dump())
 
 
 @router.put(
@@ -83,7 +83,7 @@ def update_maintenance_rule(
             status_code=404, detail="Maintenance rule not found or access denied"
         )
 
-    for key, value in rule_dto.dict().items():
+    for key, value in rule_dto.model_dump().items():
         setattr(rule, key, value)
 
     end_time = rule_dto.start_time + timedelta(seconds=rule_dto.duration_seconds)
@@ -91,7 +91,7 @@ def update_maintenance_rule(
 
     session.commit()
     session.refresh(rule)
-    return MaintenanceRuleRead(**rule.dict())
+    return MaintenanceRuleRead(**rule.model_dump())
 
 
 @router.delete("/{rule_id}", description="Delete a maintenance rule")

@@ -514,7 +514,7 @@ class BaseProvider(metaclass=abc.ABCMeta):
         if not fingerprint_fields:
             return alert.name
         fingerprint = hashlib.sha256()
-        event_dict = alert.dict()
+        event_dict = alert.model_dump()
         for fingerprint_field in fingerprint_fields:
             keys = fingerprint_field.split(".")
             fingerprint_field_value = event_dict
@@ -804,7 +804,7 @@ class BaseProvider(metaclass=abc.ABCMeta):
         }
         response = requests.post(
             url,
-            json=alert_model.dict(),
+            json=alert_model.model_dump(),
             headers=headers,
             params={"provider_id": self.provider_id},
         )

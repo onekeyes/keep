@@ -997,7 +997,7 @@ async def commit_with_ai(
     committed_incidents = await ai_feedback_bl.commit_incidents(
         suggestion_id=suggestion_id,
         incidents_with_feedback=[
-            incident.dict() for incident in incidents_with_feedback
+            incident.model_dump() for incident in incidents_with_feedback
         ],
         user_id=authenticated_entity.email,
         incident_bl=incident_bl,

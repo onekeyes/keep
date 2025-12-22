@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy import DateTime
 from sqlalchemy.sql import func
 from sqlmodel import Column, Field, SQLModel
@@ -40,9 +40,10 @@ class ExtractionRuleDtoBase(BaseModel):
     pre: bool = False
 
 
-class ExtractionRuleDtoOut(ExtractionRuleDtoBase, extra="ignore"):
+class ExtractionRuleDtoOut(ExtractionRuleDtoBase):
     id: int
     created_by: Optional[str]
     created_at: datetime
     updated_by: Optional[str]
     updated_at: Optional[datetime]
+    model_config = ConfigDict(extra="ignore")

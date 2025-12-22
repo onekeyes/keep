@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Evaluator(BaseModel):
@@ -85,8 +85,8 @@ class GrafanaAlertFormatDescription(BaseModel):
         ..., max_length=190, min_length=1, description="Alert title", required=True
     )
 
-    class Config:
-        schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "condition": "A",
                 "folderUID": "keep_alerts",
@@ -94,3 +94,4 @@ class GrafanaAlertFormatDescription(BaseModel):
                 "ruleGroup": "keep_group_1",
             },
         }
+    )

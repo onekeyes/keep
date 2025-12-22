@@ -3,8 +3,7 @@ import dataclasses
 import datetime
 from collections import defaultdict
 
-import pydantic
-
+import pydantic as pydantic
 # third-parties
 from quickchart import QuickChart
 

@@ -7,7 +7,7 @@ from typing import Optional, Tuple
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Request
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from sqlmodel import Session
 
 from keep.api.core.config import config
@@ -41,8 +41,7 @@ class CreateUserRequest(BaseModel):
     password: Optional[str] = None  # for auth0 we don't need a password
     role: str
 
-    class Config:
-        allow_population_by_field_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
 
 @router.get(
@@ -92,7 +91,7 @@ async def update_smtp_settings(
     context_manager = ContextManager(tenant_id=tenant_id)
     secret_manager = SecretManagerFactory.get_secret_manager(context_manager)
     # Save the SMTP settings in the secret manager
-    smtp_settings = smtp_settings.dict()
+    smtp_settings = smtp_settings.model_dump()
     smtp_settings["password"] = smtp_settings["password"].get_secret_value()
     secret_manager.write_secret(
         secret_name=f"{tenant_id}_smtp", secret_value=json.dumps(smtp_settings)
