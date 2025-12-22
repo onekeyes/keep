@@ -246,7 +246,7 @@ class AISuggestionBl:
 
         if existing_suggestion:
             self.logger.info("Retrieving existing suggestion from DB")
-            incident_clustering = IncidentClustering.parse_obj(
+            incident_clustering = IncidentClustering.model_validate(
                 existing_suggestion.suggestion_content
             )
             processed_incidents = self._process_incidents(
@@ -324,7 +324,7 @@ class AISuggestionBl:
 
             try:
                 # Create the incident
-                incident_dto = IncidentDto.parse_obj(incident_with_feedback["incident"])
+                incident_dto = IncidentDto.model_validate(incident_with_feedback["incident"])
                 created_incident = incident_bl.create_incident(
                     incident_dto, generated_from_ai=True
                 )

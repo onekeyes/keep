@@ -2,7 +2,7 @@ import enum
 from typing import Any, Dict, List, Optional
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, ConfigDict, conint, constr
+from pydantic import BaseModel, ConfigDict, Field as PydanticField, conint, constr
 from sqlalchemy import UniqueConstraint
 from sqlmodel import JSON, Column, Field, Relationship, SQLModel
 
@@ -75,7 +75,7 @@ class PresetSearchQuery(BaseModel):
 class PresetDto(BaseModel):
     id: UUID
     name: str
-    options: list = []
+    options: list = PydanticField(default_factory=list)
     created_by: Optional[str] = None
     is_private: Optional[bool] = Field(default=False)
     is_noisy: Optional[bool] = Field(default=False)

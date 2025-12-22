@@ -206,7 +206,7 @@ class ElasticClient:
 
         try:
             # query
-            alert_dict = alert.model_dump()
+            alert_dict = alert.model_dump(mode='json')  # Use mode='json' for proper UUID/Enum serialization
             alert_dict["dismissed"] = bool(alert_dict["dismissed"])
             # change severity to number so we can sort by it
             alert_dict["severity"] = AlertSeverity(alert.severity.lower()).order
@@ -236,7 +236,7 @@ class ElasticClient:
             action = {
                 "_index": self.alerts_index,
                 "_id": alert.fingerprint,  # use fingerprint as the document ID
-                "_source": alert.model_dump(),
+                "_source": alert.model_dump(mode='json'),  # Use mode='json' for proper UUID/Enum serialization
             }
             # change severity to number so we can sort by it
             action["_source"]["severity"] = AlertSeverity(

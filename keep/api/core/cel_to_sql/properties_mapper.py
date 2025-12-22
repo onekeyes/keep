@@ -1,4 +1,7 @@
 from typing import Optional
+
+from pydantic import Field
+
 from keep.api.core.cel_to_sql.ast_nodes import (
     ComparisonNode,
     ComparisonNodeOperator,
@@ -34,6 +37,11 @@ class JsonPropertyAccessNode(PropertyAccessNode):
         property_to_extract (str): The specific property to extract from the JSON object.
         method_access_node (MethodAccessNode): The method access node used for extraction. (*.contains, *.startsWith, etc)
     """
+    json_property_name: Optional[str] = None
+    property_to_extract: Optional[list[str]] = None
+    method_access_node: Optional[MethodAccessNode] = None
+    data_type: Optional[DataType] = None
+
     def __init__(
         self,
         json_property_name: str,
@@ -47,11 +55,6 @@ class JsonPropertyAccessNode(PropertyAccessNode):
         self.property_to_extract = property_to_extract
         self.data_type = data_type
 
-    json_property_name: Optional[str]
-    property_to_extract: Optional[list[str]]
-    method_access_node: Optional[MethodAccessNode]
-    data_type: Optional[DataType]
-
 class MultipleFieldsNode(Node):
     """
     A node representing multiple fields in a property access structure.
@@ -63,8 +66,8 @@ class MultipleFieldsNode(Node):
     Args:
         fields (list[PropertyAccessNode]): A list of PropertyAccessNode instances to initialize the node with.
     """
-    fields: list[PropertyAccessNode]
-    data_type: Optional[DataType]
+    fields: list[PropertyAccessNode] = Field(default_factory=list)
+    data_type: Optional[DataType] = None
 
 class PropertiesMappingException(Exception):
     """

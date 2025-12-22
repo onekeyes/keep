@@ -119,14 +119,14 @@ class Alert(SQLModel, table=True):
         ),
     )
     provider_type: str
-    provider_id: str | None
+    provider_id: str | None = None
     event: dict = Field(sa_column=Column(JSON))
     fingerprint: str = Field(index=True)  # Add the fingerprint field with an index
 
     # alert_hash is different than fingerprint, it is a hash of the alert itself
     #            and it is used for deduplication.
     #            alert can be different but have the same fingerprint (e.g. different "firing" and "resolved" will have the same fingerprint but not the same alert_hash)
-    alert_hash: str | None
+    alert_hash: str | None = None
 
     # Define a one-to-one relationship to AlertEnrichment using alert_fingerprint
     alert_enrichment: "AlertEnrichment" = Relationship(

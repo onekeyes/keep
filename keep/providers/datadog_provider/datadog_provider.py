@@ -1425,7 +1425,7 @@ class DatadogProvider(BaseTopologyProvider, ProviderHealthMixin):
 
     @staticmethod
     def get_alert_schema():
-        return DatadogAlertFormatDescription.schema()
+        return DatadogAlertFormatDescription.model_json_schema()
 
     @staticmethod
     def __get_epoch_one_year_ago() -> int:

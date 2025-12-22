@@ -76,7 +76,7 @@ def webhook_settings(
     return WebhookSettings(
         webhookApi=keep_webhook_api_url,
         apiKey=webhook_api_key,
-        modelSchema=AlertDto.schema(),
+        modelSchema=AlertDto.model_json_schema(),
     )
 
 

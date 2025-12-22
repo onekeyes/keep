@@ -58,7 +58,7 @@ def get_rules(
             elif rule_dto.type == "topology":
                 attributes = [
                     field
-                    for field in TopologyService.__fields__
+                    for field in TopologyService.model_fields.keys()
                     if field not in rule.matchers
                     and field != "tenant_id"
                     and field != "id"

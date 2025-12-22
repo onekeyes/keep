@@ -12,7 +12,7 @@ class Provider(SQLModel, table=True):
     id: str = Field(default=None, primary_key=True)
     tenant_id: str = Field(foreign_key="tenant.id")
     name: str
-    description: Optional[str]
+    description: Optional[str] = None
     type: str
     installed_by: str
     installation_time: datetime
@@ -22,7 +22,7 @@ class Provider(SQLModel, table=True):
     )  # scope name is key and value is either True if validated or string with error message, e.g: {"read": True, "write": "error message"}
     consumer: bool = False
     pulling_enabled: bool = True
-    last_pull_time: Optional[datetime]
+    last_pull_time: Optional[datetime] = None
     provisioned: bool = Field(default=False)
     provider_metadata: dict = Field(
         sa_column=Column(JSON)

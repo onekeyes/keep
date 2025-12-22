@@ -12,6 +12,7 @@ from pydantic import (
     AnyHttpUrl,
     BaseModel,
     ConfigDict,
+    Field,
     field_validator,
     model_validator,
 )
@@ -75,7 +76,7 @@ class AlertErrorDto(BaseModel):
 
 
 class AlertDto(BaseModel):
-    id: str | None
+    id: str | None = None
     name: str
     status: AlertStatus
     severity: AlertSeverity
@@ -89,7 +90,7 @@ class AlertDto(BaseModel):
     isPartialDuplicate: bool | None = False
     duplicateReason: str | None = None
     service: str | None = None
-    source: list[str] | None = []
+    source: list[str] | None = Field(default_factory=list)
     apiKeyRef: str | None = None
     message: str | None = None
     description: str | None = None
@@ -98,7 +99,7 @@ class AlertDto(BaseModel):
     event_id: str | None = None  # Database alert id
     url: AnyHttpUrl | None = None
     imageUrl: AnyHttpUrl | None = None
-    labels: dict | None = {}
+    labels: dict | None = Field(default_factory=dict)
     fingerprint: str | None = (
         None  # The fingerprint of the alert (used for alert de-duplication)
     )
@@ -117,7 +118,7 @@ class AlertDto(BaseModel):
     )
     isNoisy: bool = False  # Whether the alert is noisy
 
-    enriched_fields: list = []
+    enriched_fields: list = Field(default_factory=list)
     incident: str | None = None
 
     def __str__(self) -> str:
@@ -336,10 +337,7 @@ class AlertDto(BaseModel):
             ]
         },
         use_enum_values=True,
-        json_encoders={
-            # Converts enums to their values for JSON serialization
-            Enum: lambda v: v.value,
-        },
+        # json_encoders removed in Pydantic v2 - Enum serialization is handled automatically with use_enum_values=True
     )
 
 
@@ -389,17 +387,17 @@ class UnEnrichAlertRequestBody(BaseModel):
 
 
 class DeduplicationRuleDto(BaseModel):
-    id: str | None  # UUID
+    id: str | None = None  # UUID
     name: str
     description: str
     default: bool
     distribution: list[dict]  # list of {hour: int, count: int}
-    provider_id: str | None  # None for default rules
+    provider_id: str | None = None  # None for default rules
     provider_type: str
-    last_updated: str | None
-    last_updated_by: str | None
-    created_at: str | None
-    created_by: str | None
+    last_updated: str | None = None
+    last_updated_by: str | None = None
+    created_at: str | None = None
+    created_by: str | None = None
     ingested: int
     dedup_ratio: float
     enabled: bool

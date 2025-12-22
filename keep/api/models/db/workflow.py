@@ -14,11 +14,11 @@ class Workflow(SQLModel, table=True):
     id: str = Field(default=None, primary_key=True)
     tenant_id: str = Field(foreign_key="tenant.id")
     name: str = Field(sa_column=Column(TEXT))
-    description: Optional[str]
+    description: Optional[str] = None
     created_by: str = Field(sa_column=Column(TEXT))
     updated_by: Optional[str] = None
     creation_time: datetime = Field(default_factory=datetime.utcnow)
-    interval: Optional[int]
+    interval: Optional[int] = None
     workflow_raw: str = Field(sa_column=Column(TEXT))
     is_deleted: bool = Field(default=False)
     is_disabled: bool = Field(default=False)
@@ -137,7 +137,7 @@ class WorkflowExecution(SQLModel, table=True):
     )
     execution_number: int
     error: Optional[str] = Field(max_length=10240)
-    execution_time: Optional[int]
+    execution_time: Optional[int] = None
     results: dict = Field(sa_column=Column(JSON), default={})
     is_test_run: bool = Field(default=False)
 
@@ -175,7 +175,7 @@ class WorkflowToAlertExecution(SQLModel, table=True):
     id: Optional[int] = Field(primary_key=True, default=None)
     workflow_execution_id: str = Field(foreign_key="workflowexecution.id")
     alert_fingerprint: str
-    event_id: str | None
+    event_id: str | None = None
     workflow_execution: WorkflowExecution = Relationship(
         back_populates="workflow_to_alert_execution"
     )
@@ -187,7 +187,7 @@ class WorkflowToIncidentExecution(SQLModel, table=True):
     # https://sqlmodel.tiangolo.com/tutorial/automatic-id-none-refresh/
     id: Optional[int] = Field(primary_key=True, default=None)
     workflow_execution_id: str = Field(foreign_key="workflowexecution.id")
-    incident_id: str | None
+    incident_id: str | None = None
     workflow_execution: WorkflowExecution = Relationship(
         back_populates="workflow_to_incident_execution"
     )

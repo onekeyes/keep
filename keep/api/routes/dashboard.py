@@ -57,7 +57,7 @@ def provision_dashboards(tenant_id: str):
         "Provisioning Dashboards", extra={"num_of_dashboards": len(dashboards_raw)}
     )
     dashboards_to_provision = [
-        DashboardCreateDTO.parse_obj(dashboard) for dashboard in dashboards_raw
+        DashboardCreateDTO.model_validate(dashboard) for dashboard in dashboards_raw
     ]
     for dashboard in dashboards_to_provision:
         logger.info(

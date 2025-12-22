@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List, Optional
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field as PydanticField
 from sqlalchemy import DateTime, ForeignKey
 from sqlmodel import JSON, Column, Field, Relationship, SQLModel, func
 
@@ -40,15 +40,15 @@ class TopologyService(SQLModel, table=True):
     id: Optional[int] = Field(primary_key=True, default=None)
     tenant_id: str = Field(sa_column=Column(ForeignKey("tenant.id")))
     source_provider_id: str = "unknown"
-    repository: Optional[str]
+    repository: Optional[str] = None
     tags: Optional[List[str]] = Field(sa_column=Column(JSON))
     service: str
     environment: str = Field(default="unknown")
     display_name: str
-    description: Optional[str]
-    team: Optional[str]
-    email: Optional[str]
-    slack: Optional[str]
+    description: Optional[str] = None
+    team: Optional[str] = None
+    email: Optional[str] = None
+    slack: Optional[str] = None
     ip_address: Optional[str] = None
     mac_address: Optional[str] = None
     category: Optional[str] = None
@@ -112,7 +112,7 @@ class TopologyServiceDependency(SQLModel, table=True):
 
 
 class TopologyServiceDtoBase(BaseModel):
-    source_provider_id: Optional[str]
+    source_provider_id: Optional[str] = None
     repository: Optional[str] = None
     tags: Optional[List[str]] = None
     service: str
@@ -132,7 +132,7 @@ class TopologyServiceDtoBase(BaseModel):
 
 
 class TopologyServiceInDto(TopologyServiceDtoBase):
-    dependencies: dict[str, str] = {}  # dict of service it depends on : protocol
+    dependencies: dict[str, str] = PydanticField(default_factory=dict)  # dict of service it depends on : protocol
     application_relations: Optional[dict[UUID, str]] = (
         None  # An option field, pass it in the form of {application_id_1: application_name_1, application_id_2: application_name_2, ...} tha t the service belongs to, the process_topology function handles the creation/updation of the application
     )
@@ -218,7 +218,7 @@ class TopologyServiceDtoOut(TopologyServiceDtoBase):
     id: str
     dependencies: List[TopologyServiceDependencyDto]
     application_ids: List[UUID]
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
 
     @classmethod
     def from_orm(
@@ -287,8 +287,8 @@ class TopologyServiceDependencyCreateRequestDto(BaseModel):
 
 
 class TopologyServiceDependencyUpdateRequestDto(TopologyServiceDependencyCreateRequestDto):
-    service_id: Optional[int]
-    depends_on_service_id: Optional[int]
+    service_id: Optional[int] = None
+    depends_on_service_id: Optional[int] = None
     id: int
     model_config = ConfigDict(extra="ignore")
 

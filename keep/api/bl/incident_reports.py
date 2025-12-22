@@ -159,7 +159,7 @@ class IncidentReportsBl:
                 "type": "json_schema",
                 "json_schema": {
                     "name": "OpenAIReportPart",
-                    "schema": OpenAIReportPart.schema(),
+                    "schema": OpenAIReportPart.model_json_schema(),
                 },
             },
             seed=1239,

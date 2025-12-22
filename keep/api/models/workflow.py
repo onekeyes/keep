@@ -17,7 +17,7 @@ cyaml.add_representer(OrderedDict, represent_ordered_dict)
 
 class ProviderDTO(BaseModel):
     type: str
-    id: str | None  # if not installed - no id
+    id: str | None = None  # if not installed - no id
     name: str
     installed: bool
 
@@ -28,21 +28,21 @@ class WorkflowDTO(BaseModel):
     description: Optional[str] = "Workflow file doesn't contain description"
     created_by: str
     creation_time: datetime
-    triggers: List[dict] = None
+    triggers: Optional[List[dict]] = None
     interval: int | None = None
     disabled: bool = False
-    last_execution_time: datetime = None
-    last_execution_status: str = None
+    last_execution_time: Optional[datetime] = None
+    last_execution_status: Optional[str] = None
     providers: List[ProviderDTO]
     workflow_raw: str
     revision: int = 1
-    last_updated: datetime = None
-    last_updated_by: str = None
+    last_updated: Optional[datetime] = None
+    last_updated_by: Optional[str] = None
     invalid: bool = False  # whether the workflow is invalid or not (for UI purposes)
-    last_executions: List[dict] = None
-    last_execution_started: datetime = None
+    last_executions: Optional[List[dict]] = None
+    last_execution_started: Optional[datetime] = None
     provisioned: bool = False
-    provisioned_file: str = None
+    provisioned_file: Optional[str] = None
     alertRule: bool = False
     canRun: bool = True
 
@@ -95,7 +95,7 @@ class WorkflowExecutionLogsDTO(BaseModel):
     id: int
     timestamp: datetime
     message: str
-    context: Optional[dict]
+    context: Optional[dict] = None
 
 
 class WorkflowToAlertExecutionDTO(BaseModel):
@@ -104,23 +104,23 @@ class WorkflowToAlertExecutionDTO(BaseModel):
     alert_fingerprint: str
     workflow_status: str
     workflow_started: datetime
-    event_id: str | None
+    event_id: str | None = None
 
 
 class WorkflowExecutionDTO(BaseModel):
     id: str
-    workflow_id: str | None  # None for test runs
-    workflow_revision: int | None
+    workflow_id: str | None = None  # None for test runs
+    workflow_revision: int | None = None
     started: datetime
     triggered_by: str
     status: str
-    workflow_name: Optional[str]  # for UI purposes
-    logs: Optional[List[WorkflowExecutionLogsDTO]]
-    error: Optional[str]
-    execution_time: Optional[float]
-    results: Optional[dict]
-    event_id: Optional[str]
-    event_type: Optional[str]
+    workflow_name: Optional[str] = None  # for UI purposes
+    logs: Optional[List[WorkflowExecutionLogsDTO]] = None
+    error: Optional[str] = None
+    execution_time: Optional[float] = None
+    results: Optional[dict] = None
+    event_id: Optional[str] = None
+    event_type: Optional[str] = None
 
 
 class WorkflowCreateOrUpdateDTO(BaseModel):
@@ -139,7 +139,7 @@ class WorkflowRawDto(BaseModel):
 
 class WorkflowVersionDTO(BaseModel):
     revision: int
-    updated_by: str | None
+    updated_by: str | None = None
     updated_at: datetime
 
 

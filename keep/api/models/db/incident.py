@@ -89,7 +89,7 @@ class Incident(SQLModel, table=True):
     user_summary: str = Field(sa_column=Column(TEXT))
     generated_summary: str = Field(sa_column=Column(TEXT))
 
-    assignee: str | None
+    assignee: str | None = None
     severity: int = Field(default=IncidentSeverity.CRITICAL.order)
     forced_severity: bool = Field(default=False)
 
@@ -99,9 +99,9 @@ class Incident(SQLModel, table=True):
 
     # Start/end should be calculated from first/last alerts
     # But I suppose to have this fields as cache, to prevent extra requests
-    start_time: datetime | None
-    end_time: datetime | None
-    last_seen_time: datetime | None
+    start_time: datetime | None = None
+    end_time: datetime | None = None
+    last_seen_time: datetime | None = None
 
     is_predicted: bool = Field(default=False)
     is_candidate: bool = Field(default=False)
@@ -178,7 +178,7 @@ class Incident(SQLModel, table=True):
 
     # @tb: _alerts is Alert, not explicitly typed because of circular dependency
     _alerts: List = PrivateAttr(default_factory=list)
-    _enrichments: dict = PrivateAttr(default={})
+    _enrichments: dict = PrivateAttr(default_factory=dict)
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
@@ -195,14 +195,19 @@ class Incident(SQLModel, table=True):
 
     @property
     def alerts(self):
-        if hasattr(self, "_alerts"):
-            return self._alerts
-        else:
+        # 使用 object.__getattribute__ 避免触发 Pydantic 的 __getattr__
+        try:
+            return object.__getattribute__(self, "_alerts")
+        except AttributeError:
             return []
 
     @property
     def enrichments(self):
-        return getattr(self, "_enrichments", {})
+        # 使用 object.__getattribute__ 避免触发 Pydantic 的 __getattr__
+        try:
+            return object.__getattribute__(self, "_enrichments")
+        except AttributeError:
+            return {}
 
     def set_enrichments(self, enrichments):
         self._enrichments = enrichments

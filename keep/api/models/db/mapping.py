@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import Field as PydanticField
 from sqlalchemy import String
 from sqlmodel import JSON, Column, Field, SQLModel
 
@@ -71,11 +72,11 @@ class MappRuleDtoBase(BaseModel):
 
 class MappingRuleDtoOut(MappRuleDtoBase):
     id: int
-    created_by: Optional[str]
+    created_by: Optional[str] = None
     created_at: datetime
-    attributes: list[str] = []
-    updated_by: Optional[str] | None
-    last_updated_at: Optional[datetime] | None
+    attributes: list[str] = PydanticField(default_factory=list)
+    updated_by: Optional[str] = None
+    last_updated_at: Optional[datetime] = None
     rows: Optional[list[dict]] = None
     model_config = ConfigDict(extra="ignore")
 

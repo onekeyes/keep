@@ -13,7 +13,7 @@ class Action(SQLModel, table=True):
     tenant_id: str = Field(foreign_key="tenant.id")
     use: str
     name: str
-    description: Optional[str]
+    description: Optional[str] = None
     action_raw: str = Field(sa_column=Column(TEXT))
     installed_by: str
     installation_time: datetime

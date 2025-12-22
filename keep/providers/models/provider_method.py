@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ProviderMethodParam(BaseModel):
@@ -24,7 +24,7 @@ class ProviderMethod(BaseModel):
 
     name: str
     func_name: str  # the name of the function in the provider class
-    scopes: list[str] = []  # required scope names, should match ProviderScope names
+    scopes: list[str] = Field(default_factory=list)  # required scope names, should match ProviderScope names
     description: str | None = None
     category: str | None = None
     type: Literal["view", "action"] = "view"
@@ -37,4 +37,4 @@ class ProviderMethodDTO(ProviderMethod):
         This is populated using reflection from the function signature
     """
 
-    func_params: list[ProviderMethodParam] = []
+    func_params: list[ProviderMethodParam] = Field(default_factory=list)

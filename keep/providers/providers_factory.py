@@ -364,7 +364,8 @@ class ProvidersFactory:
                 if provider_auth_config_class:
                     for field in fields(provider_auth_config_class):
                         config[field.name] = dict(field.metadata)
-                        if field.default is not None:
+                        # Only add default if it's not MISSING_TYPE (dataclass sentinel value)
+                        if field.default is not None and not isinstance(field.default, _MISSING_TYPE):
                             config[field.name]["default"] = field.default
                 provider_description = provider_class.__dict__.get(
                     "provider_description"
@@ -697,4 +698,12 @@ class ProviderEncoder(json.JSONEncoder):
             return dct
         elif isinstance(o, _MISSING_TYPE):
             return None
-        return o.model_dump()
+        elif isinstance(o, ProviderConfig):
+            # ProviderConfig is a @dataclass, use __dict__ instead of model_dump()
+            return o.__dict__
+        elif hasattr(o, 'model_dump'):
+            # Pydantic BaseModel
+            return o.model_dump()
+        else:
+            # Fallback for other types
+            return super().default(o)

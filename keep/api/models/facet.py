@@ -4,19 +4,19 @@ from pydantic import BaseModel, field_validator
 from keep.api.models.db.facet import FacetType
 
 class FacetOptionsQueryDto(BaseModel):
-    cel: Optional[str]
-    facet_queries: Optional[dict[str, str]]
+    cel: Optional[str] = None
+    facet_queries: Optional[dict[str, str]] = None
 
 class FacetOptionDto(BaseModel):
     display_name: str
-    value: Any
+    value: Any = None
     matches_count: int
 
 class FacetDto(BaseModel):
     id: str
     property_path: str
     name: str
-    description: Optional[str]
+    description: Optional[str] = None
     is_static: bool
     is_lazy: bool = True
     type: FacetType
@@ -24,7 +24,7 @@ class FacetDto(BaseModel):
 class CreateFacetDto(BaseModel):
     property_path: str
     name: str
-    description: Optional[str]
+    description: Optional[str] = None
 
     @field_validator("property_path")
     def name_validator(cls, v: str):

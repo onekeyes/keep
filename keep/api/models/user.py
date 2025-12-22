@@ -1,13 +1,13 @@
 from typing import List, Optional, Set
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Group(BaseModel):
     id: str
     name: str
-    roles: list[str] = []
-    members: list[str] = []
+    roles: list[str] = Field(default_factory=list)
+    members: list[str] = Field(default_factory=list)
     memberCount: int = 0
     model_config = ConfigDict(extra="ignore")
 
@@ -16,9 +16,9 @@ class User(BaseModel):
     email: str
     name: str
     role: Optional[str] = None
-    picture: Optional[str]
+    picture: Optional[str] = None
     created_at: str
-    last_login: Optional[str]
+    last_login: Optional[str] = None
     ldap: Optional[bool] = False
     groups: Optional[list[Group]] = []
     model_config = ConfigDict(extra="ignore")
@@ -33,15 +33,15 @@ class Role(BaseModel):
 
 
 class CreateOrUpdateRole(BaseModel):
-    name: Optional[str]
-    description: Optional[str]
-    scopes: Optional[Set[str]]
+    name: Optional[str] = None
+    description: Optional[str] = None
+    scopes: Optional[Set[str]] = None
 
 
 class PermissionEntity(BaseModel):
     id: str  # permission id
     type: str  # 'user' or 'group'
-    name: Optional[str]  # permission name
+    name: Optional[str] = None  # permission name
 
 
 class ResourcePermission(BaseModel):

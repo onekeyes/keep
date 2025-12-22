@@ -6,11 +6,11 @@ import os
 from typing import Optional
 
 import chevron
+from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
 
 
-@dataclass
-class ProviderScope:
+class ProviderScope(BaseModel):
     """
     Provider scope model.
 

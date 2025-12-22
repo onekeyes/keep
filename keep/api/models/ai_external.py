@@ -85,7 +85,7 @@ class ExternalAIConfigAndMetadataDto(BaseModel):
     tenant_id: str
     settings: list[Any] | Json[Any]
     settings_proposed_by_algorithm: list[Any] | Json[Any] | None
-    feedback_logs: str | None
+    feedback_logs: str | None = None
     algorithm: ExternalAIDto
 
     @classmethod

@@ -283,7 +283,8 @@ def custom_serialize(obj: Any) -> Any:
         return tuple(custom_serialize(item) for item in obj)
     elif isinstance(obj, BaseModel):
         # For Pydantic models like AlertDto
-        return obj.model_dump()
+        # Use mode='json' to ensure UUID and other types are properly serialized
+        return obj.model_dump(mode='json')
     elif isinstance(obj, Enum):
         # For enum values
         return obj.value

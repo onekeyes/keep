@@ -226,7 +226,7 @@ class GrafanaProvider(BaseTopologyProvider, ProviderHealthMixin):
 
     @staticmethod
     def get_alert_schema():
-        return GrafanaAlertFormatDescription.schema()
+        return GrafanaAlertFormatDescription.model_json_schema()
 
     @staticmethod
     def get_service(alert: dict) -> str:
