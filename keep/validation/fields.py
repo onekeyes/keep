@@ -1,7 +1,9 @@
 from typing import Optional
 
-from pydantic import AnyUrl, HttpUrl, conint, errors
-from pydantic.networks import MultiHostDsn, Parts
+from pydantic import AnyUrl, HttpUrl, conint
+from pydantic.networks import MultiHostUrl as PydanticMultiHostUrl
+
+Parts = dict
 
 UrlPort = conint(ge=1, le=65_535)
 
@@ -42,12 +44,12 @@ class NoSchemeUrl(AnyUrl):
 
         user = parts["user"]
         if cls.user_required and user is None:
-            raise errors.UrlUserInfoError()
+            raise ValueError("URL user info is required")
 
         return parts
 
 
-class MultiHostUrl(MultiHostDsn):
+class MultiHostUrl(PydanticMultiHostUrl):
     @classmethod
     def build(
         cls,

@@ -6,7 +6,7 @@ import dataclasses
 import json
 import typing
 
-import pydantic
+import pydantic as pydantic
 from elasticsearch import Elasticsearch
 
 from keep.contextmanager.contextmanager import ContextManager
@@ -72,23 +72,23 @@ class ElasticProviderAuthConfig:
         },
     )
 
-    @pydantic.root_validator
-    def check_api_key_or_username_password(cls, values):
-        api_key = values.get("api_key")
-        username = values.get("username")
-        password = values.get("password")
+    @pydantic.model_validator(mode="after")
+    def check_api_key_or_username_password(self):
+        api_key = self.api_key
+        username = self.username
+        password = self.password
         if api_key is None and username is None and password is None:
             raise ValueError(
                 "Missing api_key or username and password in provider config"
             )
-        return values
+        return self
 
-    @pydantic.root_validator
-    def check_host_or_cloud_id(cls, values):
-        host, cloud_id = values.get("host"), values.get("cloud_id")
+    @pydantic.model_validator(mode="after")
+    def check_host_or_cloud_id(self):
+        host, cloud_id = self.host, self.cloud_id
         if host is None and cloud_id is None:
             raise ValueError("Missing host or cloud_id in provider config")
-        return values
+        return self
 
 
 class ElasticProvider(BaseProvider):

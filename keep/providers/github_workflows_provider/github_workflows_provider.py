@@ -3,7 +3,7 @@ GithubWorkflowProvider is a provider that interacts with Github Workflows API.
 """
 
 import dataclasses
-import pydantic
+import pydantic as pydantic
 import requests
 from requests.exceptions import JSONDecodeError
 

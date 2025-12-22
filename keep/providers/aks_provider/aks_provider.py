@@ -1,7 +1,7 @@
 import dataclasses
 import logging
 
-import pydantic
+import pydantic as pydantic
 from azure.identity import ClientSecretCredential
 from azure.mgmt.containerservice import ContainerServiceClient
 from kubernetes import client, config

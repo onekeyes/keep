@@ -4,7 +4,7 @@ TwilioProvider is a class that implements the BaseProvider interface for Twilio 
 
 import dataclasses
 
-import pydantic
+import pydantic as pydantic
 from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
 

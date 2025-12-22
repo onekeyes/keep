@@ -6,7 +6,7 @@ import dataclasses
 import json
 import os
 
-import pydantic
+import pydantic as pydantic
 from pymongo import MongoClient
 
 from keep.contextmanager.contextmanager import ContextManager

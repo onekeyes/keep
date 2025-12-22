@@ -6,7 +6,7 @@ import dataclasses
 from typing import List
 from urllib.parse import urlencode, urljoin
 
-import pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

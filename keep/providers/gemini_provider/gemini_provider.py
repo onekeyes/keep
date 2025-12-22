@@ -1,6 +1,6 @@
 import json
 import dataclasses
-import pydantic
+import pydantic as pydantic
 import google.generativeai as genai
 
 from keep.contextmanager.contextmanager import ContextManager

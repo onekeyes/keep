@@ -5,7 +5,7 @@ Centreon is a class that provides a set of methods to interact with the Centreon
 import dataclasses
 import datetime
 
-import pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

@@ -1,7 +1,7 @@
 import dataclasses
 import datetime
 
-import pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

@@ -2,7 +2,7 @@ from collections import OrderedDict
 from datetime import datetime
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 
 from keep.functions import cyaml
 
@@ -51,8 +51,8 @@ class WorkflowDTO(BaseModel):
         workflow_id = cyaml.safe_load(self.workflow_raw).get("id")
         return workflow_id
 
-    @validator("workflow_raw", pre=False, always=True)
-    def manipulate_raw(cls, raw, values):
+    @field_validator("workflow_raw")
+    def manipulate_raw(cls, raw):
         """We want to control the "sort" of a workflow when it gets to the front:
             1. id
             2. desc
@@ -71,7 +71,6 @@ class WorkflowDTO(BaseModel):
         d = cyaml.safe_load(raw)
         # id desc and triggers
         ordered_raw["id"] = d.get("id")
-        values["workflow_raw_id"] = d.get("id")
         ordered_raw["description"] = d.get("description")
         ordered_raw["disabled"] = d.get("disabled")
         ordered_raw["triggers"] = d.get("triggers")

@@ -5,7 +5,7 @@ import os
 import re
 import typing
 
-import pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto

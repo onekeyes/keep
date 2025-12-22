@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from uuid import uuid4
 
 import boto3
-import pydantic
+import pydantic as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

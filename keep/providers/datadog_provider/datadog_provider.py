@@ -13,7 +13,7 @@ from collections import defaultdict
 from dataclasses import asdict
 from typing import List, Literal, Optional
 
-import pydantic
+import pydantic as pydantic
 import requests
 from datadog_api_client import ApiClient, Configuration
 from datadog_api_client.api_client import Endpoint

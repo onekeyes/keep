@@ -9,7 +9,7 @@ import json
 import logging
 import time
 
-import pydantic
+import pydantic as pydantic
 import requests
 from packaging.version import Version
 

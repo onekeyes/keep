@@ -5,7 +5,7 @@ SquadcastProvider is a class that implements the Squadcast API and allows creati
 import dataclasses
 import json
 
-import pydantic
+import pydantic as pydantic
 import requests
 from requests import HTTPError
 

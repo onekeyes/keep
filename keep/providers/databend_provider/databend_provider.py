@@ -6,7 +6,7 @@ import os
 import base64
 import dataclasses
 
-import pydantic
+import pydantic as pydantic
 import requests
 from urllib.parse import urljoin
 

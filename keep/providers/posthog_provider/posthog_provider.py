@@ -3,7 +3,7 @@ from collections import Counter
 from datetime import datetime, timedelta
 from urllib.parse import urlparse
 
-import pydantic
+import pydantic as pydantic
 import requests
 
 from keep.contextmanager.contextmanager import ContextManager

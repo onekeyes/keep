@@ -2,7 +2,7 @@ import dataclasses
 import json
 import logging
 
-import pydantic
+import pydantic as pydantic
 from google.auth.transport import requests
 from google.cloud.container_v1 import ClusterManagerClient
 from google.oauth2 import service_account

@@ -2,7 +2,7 @@ import logging
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from keep.api.models.user import User
 from keep.identitymanager.authenticatedentity import AuthenticatedEntity
@@ -21,8 +21,7 @@ class CreateUserRequest(BaseModel):
     )
     groups: Optional[list[str]] = None
 
-    class Config:
-        allow_population_by_field_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
 
 class UpdateUserRequest(BaseModel):
@@ -31,10 +30,9 @@ class UpdateUserRequest(BaseModel):
     role: Optional[str] = Field(default=None)
     groups: Optional[list[str]] = None
 
-    class Config:
-        allow_population_by_field_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
-    @validator("role", allow_reuse=True)
+    @field_validator("role")
     def validate_role(cls, v):
         if v == "":
             return None
@@ -104,7 +102,7 @@ async def update_user(
     tenant_id = authenticated_entity.tenant_id
     identity_manager = IdentityManagerFactory.get_identity_manager(tenant_id)
 
-    update_data = request_data.dict(exclude_unset=True)
+    update_data = request_data.model_dump(exclude_unset=True)
     if not update_data:
         raise HTTPException(status_code=400, detail="No update data provided")
 

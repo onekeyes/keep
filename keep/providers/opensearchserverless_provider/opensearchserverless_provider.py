@@ -7,7 +7,7 @@ from typing import List
 from urllib.parse import urlencode, urljoin
 
 import boto3
-import pydantic
+import pydantic as pydantic
 import requests
 from requests_aws4auth import AWS4Auth
 
