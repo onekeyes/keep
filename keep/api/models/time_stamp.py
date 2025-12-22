@@ -2,7 +2,7 @@ import json
 from typing import Optional
 
 from fastapi import Query, HTTPException
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 from datetime import datetime
 
 

@@ -8,7 +8,7 @@ import time
 import typing
 import uuid
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

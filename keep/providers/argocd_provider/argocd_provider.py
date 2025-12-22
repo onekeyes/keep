@@ -7,7 +7,7 @@ import uuid
 from typing import List
 from urllib.parse import urlencode, urljoin
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.api.models.db.topology import TopologyServiceInDto

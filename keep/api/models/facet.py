@@ -1,7 +1,6 @@
 from typing import Any, Optional
-from pydantic import BaseModel
-import pydantic
-
+from pydantic.v1 import BaseModel
+import pydantic.v1 as pydantic
 from keep.api.models.db.facet import FacetType
 
 class FacetOptionsQueryDto(BaseModel):

@@ -3,8 +3,7 @@ import json
 import logging
 import random
 
-import pydantic
-
+import pydantic.v1 as pydantic
 from keep.api.models.alert import AlertDto
 from keep.contextmanager.contextmanager import ContextManager
 from keep.providers.base.base_provider import BaseProvider

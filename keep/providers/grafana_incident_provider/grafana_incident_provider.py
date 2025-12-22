@@ -8,7 +8,7 @@ import hashlib
 from urllib.parse import urljoin
 import uuid
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.api.models.incident import IncidentDto, IncidentStatus, IncidentSeverity

@@ -4,7 +4,7 @@ UptimeKuma is a class that provides the necessary methods to interact with the U
 
 import dataclasses
 
-import pydantic
+import pydantic.v1 as pydantic
 from socketio.exceptions import BadNamespaceError
 from uptime_kuma_api import UptimeKumaApi
 

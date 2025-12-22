@@ -6,7 +6,7 @@ from typing import Optional
 from uuid import UUID
 
 from openai import OpenAI
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from keep.api.bl.incidents_bl import IncidentBl
 from keep.api.consts import OPENAI_MODEL_NAME

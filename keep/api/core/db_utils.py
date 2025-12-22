@@ -14,7 +14,7 @@ import pymysql
 from dotenv import find_dotenv, load_dotenv
 from fastapi.encoders import jsonable_encoder
 from google.cloud.sql.connector import Connector
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.compiler import compiles

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, SecretStr, validator
+from pydantic.v1 import BaseModel, SecretStr, validator
 
 
 class SMTPSettings(BaseModel):

@@ -5,7 +5,7 @@ import logging
 import time
 from xml.etree.ElementTree import ParseError
 
-import pydantic
+import pydantic.v1 as pydantic
 from splunklib.binding import AuthenticationError, HTTPError
 from splunklib.client import connect
 

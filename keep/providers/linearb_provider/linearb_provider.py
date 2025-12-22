@@ -2,7 +2,7 @@ import dataclasses
 import datetime
 import json
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 from asteval import Interpreter
 

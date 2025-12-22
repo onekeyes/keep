@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import List, Optional
 from urllib.parse import urlencode, urljoin
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 from dateutil import parser
 

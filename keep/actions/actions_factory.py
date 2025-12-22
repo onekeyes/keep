@@ -3,7 +3,7 @@ import logging
 from io import StringIO
 from uuid import uuid4
 from typing import List, Union
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 from keep.api.models.action import ActionDTO
 from keep.api.models.db.action import Action
 from keep.api.core.db import get_all_actions, create_actions, delete_action, get_action, update_action

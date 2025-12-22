@@ -5,7 +5,7 @@ SendGridProvider is a class that implements the SendGrid API and allows email se
 import dataclasses
 import logging
 
-import pydantic
+import pydantic.v1 as pydantic
 from python_http_client.exceptions import ForbiddenError, UnauthorizedError
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail

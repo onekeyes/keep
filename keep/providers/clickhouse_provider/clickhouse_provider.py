@@ -2,7 +2,7 @@ import dataclasses
 import json
 import typing
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 from clickhouse_driver import connect
 from clickhouse_driver.dbapi.extras import DictCursor

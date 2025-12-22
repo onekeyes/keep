@@ -6,7 +6,7 @@ import dataclasses
 import json
 import typing
 
-import pydantic
+import pydantic.v1 as pydantic
 from elasticsearch import Elasticsearch
 
 from keep.contextmanager.contextmanager import ContextManager

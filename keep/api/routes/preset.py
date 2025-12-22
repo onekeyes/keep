@@ -11,7 +11,7 @@ from fastapi import (
     Request,
     Response,
 )
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from sqlmodel import Session, select
 
 from keep.api.consts import PROVIDER_PULL_INTERVAL_MINUTE, STATIC_PRESETS

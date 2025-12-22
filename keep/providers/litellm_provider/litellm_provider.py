@@ -1,6 +1,6 @@
 import json
 import dataclasses
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 from typing import Optional, Dict, Any, List
 

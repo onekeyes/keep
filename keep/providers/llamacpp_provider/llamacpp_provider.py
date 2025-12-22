@@ -1,5 +1,5 @@
 import dataclasses
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.contextmanager.contextmanager import ContextManager

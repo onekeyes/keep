@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List, Optional
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from sqlalchemy import DateTime, ForeignKey
 from sqlmodel import JSON, Column, Field, Relationship, SQLModel, func
 

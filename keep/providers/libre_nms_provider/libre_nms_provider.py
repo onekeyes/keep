@@ -4,7 +4,7 @@ LibreNMS Provider is a class that provides a way to receive alerts from LibreNMS
 
 import dataclasses
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

@@ -7,7 +7,7 @@ from typing import Optional, Tuple
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Request
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 from sqlmodel import Session
 
 from keep.api.core.config import config

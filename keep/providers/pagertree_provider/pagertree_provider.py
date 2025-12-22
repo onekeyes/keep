@@ -5,7 +5,7 @@ PagetreeProvider is a class that provides a way to read get alerts from Pagetree
 import dataclasses
 from typing import Literal
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto

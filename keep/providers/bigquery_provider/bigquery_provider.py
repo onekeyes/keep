@@ -7,7 +7,7 @@ import json
 import os
 from typing import Optional
 
-import pydantic
+import pydantic.v1 as pydantic
 from google.cloud import bigquery
 
 from keep.contextmanager.contextmanager import ContextManager

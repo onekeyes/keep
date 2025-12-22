@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Literal, Optional
 
-from pydantic import BaseModel, validator
+from pydantic.v1 import BaseModel, validator
 from sqlalchemy import String
 from sqlmodel import JSON, Column, Field, SQLModel
 

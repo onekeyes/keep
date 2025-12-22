@@ -5,8 +5,7 @@ S3 Provider for querying S3 buckets.
 import dataclasses
 
 import boto3
-import pydantic
-
+import pydantic.v1 as pydantic
 from keep.exceptions.provider_exception import ProviderException
 from keep.providers.base.base_provider import BaseProvider
 

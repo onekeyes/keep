@@ -2,7 +2,7 @@ from collections import OrderedDict
 from datetime import datetime
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel, validator
+from pydantic.v1 import BaseModel, validator
 
 from keep.functions import cyaml
 

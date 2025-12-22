@@ -2,7 +2,7 @@ import enum
 from typing import Any, Dict, List, Optional
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, conint, constr
+from pydantic.v1 import BaseModel, conint, constr
 from sqlalchemy import UniqueConstraint
 from sqlmodel import JSON, Column, Field, Relationship, SQLModel
 

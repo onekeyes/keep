@@ -3,7 +3,7 @@ import typing
 
 import json5
 import opsgenie_sdk
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 from opsgenie_sdk.rest import ApiException
 

@@ -17,8 +17,7 @@ from typing import (  # noqa: F401 - Used for type hints
 from unittest.mock import MagicMock  # For testing
 from datetime import datetime, timezone
 
-import pydantic
-
+import pydantic.v1 as pydantic
 try:
     from kubernetes import client, config
     from kubernetes.client.rest import ApiException

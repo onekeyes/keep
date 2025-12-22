@@ -10,7 +10,7 @@ import logging
 import os
 from urllib.parse import quote
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

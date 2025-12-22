@@ -3,7 +3,7 @@ import logging
 from typing import List, Optional
 from uuid import UUID
 
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 from sqlalchemy import and_, or_, exists
 from sqlalchemy.orm import joinedload, selectinload
 from sqlmodel import Session, select

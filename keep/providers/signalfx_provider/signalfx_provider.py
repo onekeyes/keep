@@ -3,7 +3,7 @@ import dataclasses
 import datetime
 from urllib.parse import quote, urlparse
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

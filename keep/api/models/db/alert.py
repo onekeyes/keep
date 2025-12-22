@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List
 from uuid import UUID, uuid4
 
-from pydantic import PrivateAttr
+from pydantic.v1 import PrivateAttr
 from sqlalchemy import ForeignKey, ForeignKeyConstraint, UniqueConstraint
 from sqlalchemy_utils import UUIDType
 from sqlmodel import JSON, TEXT, Column, Field, Index, Relationship, SQLModel

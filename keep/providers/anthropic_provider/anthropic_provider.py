@@ -1,6 +1,6 @@
 import json
 import dataclasses
-import pydantic
+import pydantic.v1 as pydantic
 from anthropic import Anthropic
 
 from keep.contextmanager.contextmanager import ContextManager

@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from sqlalchemy import DateTime
 from sqlalchemy.sql import func
 from sqlmodel import Column, Field, SQLModel

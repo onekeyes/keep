@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 from uuid import UUID
 
-from pydantic import (
+from pydantic.v1 import (
     BaseModel,
     Extra,
     Field,

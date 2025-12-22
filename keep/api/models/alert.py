@@ -8,7 +8,7 @@ from enum import Enum
 from typing import TYPE_CHECKING, Any, Dict, Optional
 
 import pytz
-from pydantic import AnyHttpUrl, BaseModel, Extra, root_validator, validator
+from pydantic.v1 import AnyHttpUrl, BaseModel, Extra, root_validator, validator
 
 from keep.api.models.severity_base import SeverityBaseInterface
 

@@ -6,8 +6,7 @@ import dataclasses
 import os
 
 import psycopg2
-import pydantic
-
+import pydantic.v1 as pydantic
 from keep.contextmanager.contextmanager import ContextManager
 from keep.providers.base.base_provider import BaseProvider
 from keep.providers.models.provider_config import ProviderConfig, ProviderScope

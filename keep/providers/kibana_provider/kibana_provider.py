@@ -10,7 +10,7 @@ import uuid
 from typing import Literal, Union
 from urllib.parse import urlparse
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 from fastapi import HTTPException
 from packaging.version import Version

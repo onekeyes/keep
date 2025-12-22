@@ -4,7 +4,7 @@ ChecklyProvider is a class that allows you to receive alerts from Checkly using 
 
 import dataclasses
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus

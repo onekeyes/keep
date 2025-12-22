@@ -13,7 +13,7 @@ from collections import defaultdict
 from dataclasses import asdict
 from typing import List, Literal, Optional
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 from datadog_api_client import ApiClient, Configuration
 from datadog_api_client.api_client import Endpoint
@@ -37,7 +37,7 @@ from datadog_api_client.v2.api.events_api import EventsApi
 from datadog_api_client.v2.api.incidents_api import IncidentsApi
 from datadog_api_client.v2.api.service_definition_api import ServiceDefinitionApi
 from datadog_api_client.v2.api.users_api import UsersApi, UsersResponse
-from pydantic import Field
+from pydantic.v1 import Field
 
 from keep.api.models.alert import AlertDto, AlertSeverity, AlertStatus
 from keep.api.models.db.topology import TopologyServiceInDto

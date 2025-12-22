@@ -8,7 +8,7 @@ import dataclasses
 import json
 import typing
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 from requests.exceptions import JSONDecodeError
 

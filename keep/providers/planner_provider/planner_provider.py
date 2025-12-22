@@ -5,7 +5,7 @@ and create tasks in planner.
 import dataclasses
 from urllib.parse import urljoin
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 
 from keep.contextmanager.contextmanager import ContextManager

@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from keep.api.models.alert import AlertDto, AlertWithIncidentLinkMetadataDto
 from keep.api.models.db.enrichment_event import EnrichmentEvent

@@ -4,7 +4,7 @@ GithubProvider is a provider that interacts with GitHub.
 
 import dataclasses
 
-import pydantic
+import pydantic.v1 as pydantic
 from github import Github
 
 from keep.contextmanager.contextmanager import ContextManager

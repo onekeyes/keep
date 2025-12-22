@@ -1,7 +1,7 @@
 from typing import Optional
 
-from pydantic import AnyUrl, HttpUrl, conint, errors
-from pydantic.networks import MultiHostDsn, Parts
+from pydantic.v1 import AnyUrl, HttpUrl, conint, errors
+from pydantic.v1.networks import MultiHostDsn, Parts
 
 UrlPort = conint(ge=1, le=65_535)
 

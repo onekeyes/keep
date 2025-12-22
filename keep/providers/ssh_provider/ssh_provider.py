@@ -6,7 +6,7 @@ import dataclasses
 import io
 import typing
 
-import pydantic
+import pydantic.v1 as pydantic
 from paramiko import AutoAddPolicy, RSAKey, SSHClient
 
 from keep.contextmanager.contextmanager import ContextManager

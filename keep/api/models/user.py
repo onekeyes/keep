@@ -1,6 +1,6 @@
 from typing import List, Optional, Set
 
-from pydantic import BaseModel, Extra
+from pydantic.v1 import BaseModel, Extra
 
 
 class Group(BaseModel, extra=Extra.ignore):

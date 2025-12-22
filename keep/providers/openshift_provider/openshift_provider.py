@@ -1,7 +1,7 @@
 import dataclasses
 import datetime
 
-import pydantic
+import pydantic.v1 as pydantic
 import requests
 import warnings
 from kubernetes import client

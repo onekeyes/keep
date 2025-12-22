@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from keep.api.core.db import (
     create_dashboard as create_dashboard_db,
