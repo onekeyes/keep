@@ -214,7 +214,7 @@ export function IncidentOverview({ incident: initialIncidentData }: Props) {
     error: alertsError,
   } = useIncidentAlerts(incident.id, 20, 0);
   const environments =
-    incident.enrichments.environments ||
+    incident.enrichments?.environments ||
     (Array.from(
       new Set(
         alerts?.items
@@ -228,7 +228,7 @@ export function IncidentOverview({ incident: initialIncidentData }: Props) {
       )
     ) as Array<string>);
   const repositories =
-    incident.enrichments.repositories ||
+    incident.enrichments?.repositories ||
     (Array.from(
       new Set(
         alerts?.items
@@ -495,20 +495,21 @@ export function IncidentOverview({ incident: initialIncidentData }: Props) {
                     </div>
                   </div>
                 )}
-              {map(incident.enrichments, (value: any, key: string) => {
-                if (PROVISIONED_ENRICHMENTS.indexOf(key) > -1) return;
-                return (
-                  <div key={`incident-enrichment-${key}`}>
-                    <FieldHeader>{startCase(key)}</FieldHeader>
-                    <EnrichmentEditableField
-                      name={key}
-                      value={value}
-                      onUpdate={handleEnrichmentChange}
-                      onDelete={handleUnEnrichment}
-                    />
-                  </div>
-                );
-              })}
+              {incident.enrichments &&
+                map(incident.enrichments, (value: any, key: string) => {
+                  if (PROVISIONED_ENRICHMENTS.indexOf(key) > -1) return;
+                  return (
+                    <div key={`incident-enrichment-${key}`}>
+                      <FieldHeader>{startCase(key)}</FieldHeader>
+                      <EnrichmentEditableField
+                        name={key}
+                        value={value}
+                        onUpdate={handleEnrichmentChange}
+                        onDelete={handleUnEnrichment}
+                      />
+                    </div>
+                  );
+                })}
               <div>
                 <EnrichmentEditableField
                   value={""}

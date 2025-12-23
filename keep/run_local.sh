@@ -24,43 +24,10 @@ if [ -n "$ENV_FILE" ] && [ -f "$ENV_FILE" ]; then
     source "$ENV_FILE"
     set +a
 else
-    echo "警告: .env 文件不存在，使用默认配置"
-    # 设置默认环境变量
-    export AUTH_TYPE=DB
-    export PORT=8080
-    export SECRET_MANAGER_TYPE=FILE
-    export SECRET_MANAGER_DIRECTORY=./state
-    export DATABASE_CONNECTION_STRING=postgresql://keep:keep@10.10.50.108:5432/keep
-    export DATABASE_POOL_SIZE=10
-    export KEEP_JWT_SECRET=verysecretkey
-    export KEEP_DEFAULT_USERNAME=keep
-    export KEEP_DEFAULT_PASSWORD=keep
-    export KEEP_API_URL=http://10.10.50.108:8080
-    export OPENAI_API_KEY=sk-6e43ccfff6224481b96b105e7f8d10b5
-    export OPENAI_BASE_URL=http://10.10.50.106:4000
-    export OPENAI_MODEL_NAME=deepseek/deepseek-chat
-    export PUSHER_APP_ID=1
-    export PUSHER_APP_KEY=keepappkey
-    export PUSHER_APP_SECRET=keepappsecret
-    export PUSHER_HOST=10.10.50.108
-    export PUSHER_PORT=6001
-    export USE_NGROK=false
-    export REDIS=true
-    export REDIS_HOST=10.10.50.108
-    export REDIS_PORT=6379
-    export PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
-    export KEEP_METRICS=true
-    export KEEP_STORE_PROVIDER_LOGS=true
-    export OTEL_SERVICE_NAME=keephq
-    export OTLP_ENDPOINT=http://10.10.50.108:4317
-    export METRIC_OTEL_ENABLED=true
-    export ELASTIC_ENABLED=true
-    export ELASTIC_HOSTS=http://10.10.50.108:9200
-    export ELASTIC_USER=elastic
-    export ELASTIC_PASSWORD=elastic
-    export ELASTIC_INDEX_SUFFIX=poc
-    export ELASTIC_VERIFY_CERTS=false
-    export ELASTIC_REFRESH_STRATEGY=true
+    echo "错误: .env 文件不存在"
+    echo "请创建 .env 文件并配置必要的环境变量"
+    echo "可以在项目根目录 ($PROJECT_ROOT) 或 keep 目录 ($PROJECT_ROOT/keep) 创建 .env 文件"
+    exit 1
 fi
 
 # 创建必要的目录
@@ -129,14 +96,14 @@ print(f'[INFO] 工作目录: {os.getcwd()}')
 print('[INFO] 正在导入 keep.api...')
 
 try:
-from keep.api import api
+    from keep.api import api
     print('[INFO] keep.api 导入成功')
     print('[INFO] 正在创建应用实例...')
-app = api.get_app()
+    app = api.get_app()
     print('[INFO] 应用实例创建成功')
     print('[INFO] 正在启动服务器...')
     print('')
-api.run(app)
+    api.run(app)
 except Exception as e:
     print(f'[ERROR] 启动失败: {e}')
     import traceback
@@ -181,14 +148,14 @@ print(f'[INFO] 工作目录: {os.getcwd()}')
 print('[INFO] 正在导入 keep.api...')
 
 try:
-from keep.api import api
+    from keep.api import api
     print('[INFO] keep.api 导入成功')
     print('[INFO] 正在创建应用实例...')
-app = api.get_app()
+    app = api.get_app()
     print('[INFO] 应用实例创建成功')
     print('[INFO] 正在启动服务器...')
     print('')
-api.run(app)
+    api.run(app)
 except Exception as e:
     print(f'[ERROR] 启动失败: {e}')
     import traceback
@@ -224,14 +191,14 @@ print(f'[INFO] 工作目录: {os.getcwd()}')
 print('[INFO] 正在导入 keep.api...')
 
 try:
-from keep.api import api
+    from keep.api import api
     print('[INFO] keep.api 导入成功')
     print('[INFO] 正在创建应用实例...')
-app = api.get_app()
+    app = api.get_app()
     print('[INFO] 应用实例创建成功')
     print('[INFO] 正在启动服务器...')
     print('')
-api.run(app)
+    api.run(app)
 except Exception as e:
     print(f'[ERROR] 启动失败: {e}')
     import traceback
